@@ -35,7 +35,11 @@ export class CreateUser1605198962648 implements MigrationInterface {
           },
           {
             name: 'birthdate',
-            type: 'varchar',
+            type: 'Date',
+          },
+          {
+            name: 'is_Adm',
+            type: 'boolean',
           },
           {
             name: 'created_at',

@@ -6,10 +6,11 @@
   "scripts": {
     "build": "tsc",
     "dev:server": "ts-node-dev --transpile-only --inspect --ignore-watch node_modules src/server.ts",
-    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "typeorm": "ts-node-dev  ./node_modules/typeorm/cli.js",
     "test": "jest --silent"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -22,6 +23,7 @@
     "yup": "^0.29.3"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.8",
     "@types/express": "^4.17.8",
     "@types/jsonwebtoken": "^8.5.0",
