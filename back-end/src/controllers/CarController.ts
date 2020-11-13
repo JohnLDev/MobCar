@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import AddCarService from '../services/AddCarService'
 import IndexCarService from '../services/IndexCarService'
+import ShowCarService from '../services/ShowCarService'
 
 export default {
   async AddCar(request: Request, response: Response): Promise<Response> {
@@ -27,6 +28,16 @@ export default {
       max: (max as unknown) as number,
       model: (model as unknown) as string,
       pag: pag as 'asc' | 'desc',
+    })
+
+    return response.status(200).json(cars)
+  },
+
+  async Show(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params
+    const showCarService = new ShowCarService()
+    const cars = await showCarService.execute({
+      id,
     })
 
     return response.status(200).json(cars)
