@@ -14,13 +14,11 @@ export default class IndexCarService {
   }: IIndexCarDTO): Promise<Car[]> {
     const carRepository = getCustomRepository(CarRepository)
     this.Cars = await carRepository.find()
-    console.log(this.Cars)
 
     if (category) {
       this.Cars = this.Cars.filter(car => car.category === category)
     }
     if (model) {
-      console.log(category, max, model, pag)
       this.Cars = this.Cars.filter(car => car.model === model)
     }
     if (max) {
