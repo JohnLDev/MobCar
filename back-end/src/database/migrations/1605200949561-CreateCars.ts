@@ -34,6 +34,10 @@ export class CreateCars1605200949561 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'url',
+            type: 'varchar',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
