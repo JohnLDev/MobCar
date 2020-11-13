@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import Rent from './Rent'
 
 @Entity('users')
 export default class User {
@@ -25,6 +26,9 @@ export default class User {
 
   @Column()
   is_Adm?: boolean
+
+  @OneToMany(() => Rent, rent => rent.user)
+  rents: Rent[]
 
   @Column()
   created_at: Date

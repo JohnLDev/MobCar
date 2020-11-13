@@ -8,5 +8,6 @@ carRouter.get('/index', CarController.Index)
 carRouter.get('/show/:id', CarController.Show)
 carRouter.post('/addcar', ensureAuthenticated, CarController.AddCar)
 carRouter.post('/rentprice/:id', CarController.RentPrice)
+carRouter.post('/rent/:id', ensureAuthenticated, CarController.Rent)
 
 export default carRouter

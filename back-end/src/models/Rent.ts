@@ -20,7 +20,7 @@ export default class Rent {
   date_Until: Date
 
   @Column()
-  price: string
+  price: number
 
   @Column()
   user_Id: string
@@ -28,7 +28,10 @@ export default class Rent {
   @Column()
   car_Id: string
 
-  @ManyToOne(() => User, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+  @ManyToOne(() => User, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn({ name: 'user_Id' })
   user: User
 

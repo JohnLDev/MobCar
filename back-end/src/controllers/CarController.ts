@@ -3,6 +3,7 @@ import AddCarService from '../services/AddCarService'
 import IndexCarService from '../services/IndexCarService'
 import ShowCarService from '../services/ShowCarService'
 import CalculateRentPriceService from '../services/CalculateRentPriceService'
+import RentCarService from '../services/RentCarService'
 
 export default {
   async AddCar(request: Request, response: Response): Promise<Response> {
@@ -52,6 +53,21 @@ export default {
       id,
       date_From,
       date_Until,
+    })
+
+    return response.status(200).json(price)
+  },
+
+  async Rent(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params
+    const { date_From, date_Until } = request.body
+    const user_Id = request.user.id
+    const rentCarService = new RentCarService()
+    const price = await rentCarService.execute({
+      id,
+      date_From,
+      date_Until,
+      user_Id,
     })
 
     return response.status(200).json(price)

@@ -3,7 +3,7 @@ import { EntityRepository, Repository } from 'typeorm'
 import Car from '../models/Car'
 
 @EntityRepository(Car)
-class UserRepository extends Repository<Car> {
+class CarRepository extends Repository<Car> {
   public async findByModel(model: string): Promise<Car | undefined> {
     const findCar = await this.findOne({
       where: { model: model },
@@ -30,4 +30,4 @@ class UserRepository extends Repository<Car> {
   }
 }
 
-export default UserRepository
+export default CarRepository

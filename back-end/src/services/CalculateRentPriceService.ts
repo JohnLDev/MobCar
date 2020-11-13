@@ -3,12 +3,9 @@ import * as yup from 'yup'
 import DiffDays from '../utils/DiffDays'
 import CarRepository from '../repositories/CarRepository'
 import AppError from '../errors/AppError'
+import IRentCarDTO from '../dtos/IRentCarDTO'
+import GetRentPrice from '../utils/GetRentPrice'
 
-interface IResquet {
-  id: string
-  date_From: string
-  date_Until: string
-}
 interface IResponse {
   price: number
   diffDays: number
@@ -20,7 +17,7 @@ export default class CalculateRentPriceService {
     id,
     date_From,
     date_Until,
-  }: IResquet): Promise<IResponse> {
+  }: IRentCarDTO): Promise<IResponse> {
     const data = {
       id,
       date_From,
@@ -47,21 +44,9 @@ export default class CalculateRentPriceService {
       throw new AppError('Carro não cadastrado', 404)
     }
 
-    switch (car.category) {
-      case 'padrao':
-        this.price = 99.99
-        break
-      case 'executivo':
-        this.price = 199.99
-        break
-      case 'vip':
-        this.price = 350
-        break
-      default:
-        break
-    }
+    this.price = GetRentPrice(car.category)
 
-    const diffDays = DiffDays({ date_From, date_Until })
+    const { diffDays } = DiffDays({ date_From, date_Until })
     this.price = diffDays * this.price
 
     return { price: this.price, diffDays }

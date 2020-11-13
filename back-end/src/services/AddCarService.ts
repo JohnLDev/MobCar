@@ -39,7 +39,7 @@ export default class AddCarService {
       category !== 'executivo' &&
       category !== 'vip'
     ) {
-      throw new AppError('Categoria invalida (Padrão, Executivo, Vip)')
+      throw new AppError('Categoria invalida (Padrao, Executivo, Vip)')
     }
     const carRepository = getCustomRepository(CarRepository)
     const userRepository = getCustomRepository(UserRepository)

@@ -2,8 +2,16 @@ interface IResquet {
   date_From: string
   date_Until: string
 }
+interface IResponse {
+  diffDays: number
+  DateU: Date
+  DateF: Date
+}
 
-export default function DiffDays({ date_From, date_Until }: IResquet): number {
+export default function DiffDays({
+  date_From,
+  date_Until,
+}: IResquet): IResponse {
   const [dayF, monthF, yearF] = date_From.split('/')
   const [dayU, monthU, yearU] = date_Until.split('/')
 
@@ -20,6 +28,6 @@ export default function DiffDays({ date_From, date_Until }: IResquet): number {
   )
 
   const timeDiff = Math.abs(DateU.getTime() - DateF.getTime())
-  const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
-  return diffDays
+  const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1
+  return { diffDays, DateU, DateF }
 }
