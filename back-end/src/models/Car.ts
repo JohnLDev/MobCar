@@ -18,7 +18,10 @@ export default class Car {
   observations: string
 
   @Column()
-  category: 'padrão' | 'executivo' | 'vip'
+  url: string
+
+  @Column()
+  category: 'padrao' | 'executivo' | 'vip'
 
   @Column()
   created_at: Date

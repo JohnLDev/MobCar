@@ -14,6 +14,7 @@ export default class CreateUserService {
     cellphone,
     birthdate,
   }: ICreateUserDTO): Promise<User> {
+    email = email.toLocaleLowerCase()
     const data = {
       name,
       cpf,

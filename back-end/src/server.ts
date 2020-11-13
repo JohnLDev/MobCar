@@ -9,10 +9,6 @@ import cors from 'cors'
 import routes from './routes'
 import AppError from './errors/AppError'
 
-interface IValidationErrors {
-  [key: string]: string[]
-}
-
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -20,11 +16,9 @@ app.use(routes)
 app.use(
   (error: Error, request: Request, response: Response, _next: NextFunction) => {
     if (error instanceof ValidationError) {
-      const errors: IValidationErrors = {}
-      error.inner.forEach(err => {
-        errors[err.path] = err.errors
-      })
-      return response.status(400).json({ message: 'validation fails', errors })
+      return response
+        .status(400)
+        .json({ errors: error.errors.map(error => error) })
     }
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({

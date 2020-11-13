@@ -21,6 +21,7 @@ export default class AuthenticateUserService {
       throw new AppError('Please insert email and password to login')
     }
     const userRepository = getCustomRepository(UserRepository)
+    email = email.toLocaleLowerCase()
     const user = await userRepository.findByEmail(email)
     if (!user) {
       throw new AppError('Incorrect email/password combination', 401)

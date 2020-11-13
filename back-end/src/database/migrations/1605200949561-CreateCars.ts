@@ -28,6 +28,7 @@ export class CreateCars1605200949561 implements MigrationInterface {
           {
             name: 'observations',
             type: 'text',
+            isNullable: true,
           },
           {
             name: 'category',
