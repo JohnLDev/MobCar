@@ -19,6 +19,15 @@ class UserRepository extends Repository<Car> {
 
     return findCar
   }
+
+  public async findById(id: number): Promise<Car | undefined> {
+    const findCar = await this.findOne({
+      where: { id: id },
+      relations: ['rents'],
+    })
+
+    return findCar
+  }
 }
 
 export default UserRepository

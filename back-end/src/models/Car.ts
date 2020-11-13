@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
+import Rent from './Rent'
 
 @Entity('cars')
 export default class Car {
@@ -22,6 +23,9 @@ export default class Car {
 
   @Column()
   category: 'padrao' | 'executivo' | 'vip'
+
+  @OneToMany(() => Rent, rent => rent.car)
+  rents: Rent[]
 
   @Column()
   created_at: Date

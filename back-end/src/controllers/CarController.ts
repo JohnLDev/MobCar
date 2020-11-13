@@ -5,6 +5,7 @@ import IndexCarService from '../services/IndexCarService'
 export default {
   async AddCar(request: Request, response: Response): Promise<Response> {
     const { model, board, color, category, observations, url } = request.body
+    const user_Id = request.user.id
     const addCarService = new AddCarService()
     const car = await addCarService.execute({
       model,
@@ -13,6 +14,7 @@ export default {
       category,
       observations,
       url,
+      user_Id,
     })
     return response.status(201).json(car)
   },

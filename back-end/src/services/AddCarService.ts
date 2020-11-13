@@ -2,6 +2,7 @@ import Car from '../models/Car'
 import CreateCarDTO from '../dtos/ICreateCarDTO'
 import * as yup from 'yup'
 import CarRepository from '../repositories/CarRepository'
+import UserRepository from '../repositories/UserRepository'
 import AppError from '../errors/AppError'
 import { getCustomRepository } from 'typeorm'
 
@@ -13,6 +14,7 @@ export default class AddCarService {
     category,
     observations,
     url,
+    user_Id,
   }: CreateCarDTO): Promise<Car> {
     const data = {
       model,
@@ -40,6 +42,20 @@ export default class AddCarService {
       throw new AppError('Categoria invalida (Padrão, Executivo, Vip)')
     }
     const carRepository = getCustomRepository(CarRepository)
+    const userRepository = getCustomRepository(UserRepository)
+    const user = await userRepository.findById(user_Id)
+    if (!user) {
+      throw new AppError(
+        'Você deve realizar login antes de adicionar um carro',
+        400,
+      )
+    }
+    if (!user.is_Adm) {
+      throw new AppError(
+        'Você precisa ser um administrador para adicionar carros ao sistema',
+      )
+    }
+
     const boardAlreadyExists = await carRepository.findByBoard(board)
 
     if (boardAlreadyExists) {

@@ -5,4 +5,5 @@ export default interface ICreateCarDTO {
   observations?: string
   category: 'padrao' | 'executivo' | 'vip'
   url?: string
+  user_Id: string
 }
