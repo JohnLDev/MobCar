@@ -22,6 +22,10 @@ export class CreateRents1605203055785 implements MigrationInterface {
             name: 'date_Until',
             type: 'Date',
           },
+          {
+            name: 'price',
+            type: 'decimal',
+          },
 
           {
             name: 'user_Id',
