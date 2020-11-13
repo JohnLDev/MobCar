@@ -6,12 +6,13 @@ import CalculateRentPriceService from '../services/CalculateRentPriceService'
 import RentCarService from '../services/RentCarService'
 import DeleteCarService from '../services/DeleteCarService'
 import UpdateCarService from '../services/UpdateCarService'
+import { container } from 'tsyringe'
 
 export default {
   async AddCar(request: Request, response: Response): Promise<Response> {
     const { model, board, color, category, observations, url } = request.body
     const user_Id = request.user.id
-    const addCarService = new AddCarService()
+    const addCarService = container.resolve(AddCarService)
     const car = await addCarService.execute({
       model,
       board,
@@ -28,7 +29,7 @@ export default {
     const { model, board, color, category, observations, url } = request.body
     const user_Id = request.user.id
     const { id } = request.params
-    const updateCarService = new UpdateCarService()
+    const updateCarService = container.resolve(UpdateCarService)
     const car = await updateCarService.execute({
       model,
       id,
@@ -44,7 +45,7 @@ export default {
 
   async Index(request: Request, response: Response): Promise<Response> {
     const { category, max, model, pag } = request.query
-    const indexCarService = new IndexCarService()
+    const indexCarService = container.resolve(IndexCarService)
     const cars = await indexCarService.execute({
       category: (category as unknown) as string,
       max: (max as unknown) as number,
@@ -57,7 +58,7 @@ export default {
 
   async Show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
-    const showCarService = new ShowCarService()
+    const showCarService = container.resolve(ShowCarService)
     const cars = await showCarService.execute({
       id,
     })
@@ -68,7 +69,9 @@ export default {
   async RentPrice(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
     const { date_From, date_Until } = request.body
-    const calculateRentPriceService = new CalculateRentPriceService()
+    const calculateRentPriceService = container.resolve(
+      CalculateRentPriceService,
+    )
     const price = await calculateRentPriceService.execute({
       id,
       date_From,
@@ -82,7 +85,7 @@ export default {
     const { id } = request.params
     const { date_From, date_Until } = request.body
     const user_Id = request.user.id
-    const rentCarService = new RentCarService()
+    const rentCarService = container.resolve(RentCarService)
     const price = await rentCarService.execute({
       id,
       date_From,
@@ -95,7 +98,7 @@ export default {
 
   async Delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
-    const deleteCarService = new DeleteCarService()
+    const deleteCarService = container.resolve(DeleteCarService)
     await deleteCarService.execute({
       id,
     })

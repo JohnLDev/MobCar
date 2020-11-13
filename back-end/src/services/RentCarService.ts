@@ -1,4 +1,3 @@
-import { getCustomRepository, getRepository } from 'typeorm'
 import IRentCarDTO from '../dtos/IRentCarDTO'
 import Rent from '../models/Rent'
 import * as yup from 'yup'
@@ -6,10 +5,20 @@ import { validate } from 'uuid'
 import AppError from '../errors/AppError'
 import DiffDays from '../utils/DiffDays'
 import GetRentPrice from '../utils/GetRentPrice'
-import CarRepository from '../database/repositories/CarRepository'
 import { isAfter, isBefore, isEqual, setHours, startOfHour } from 'date-fns'
+import { inject, injectable } from 'tsyringe'
+import ICarRepository from '../repositories/ICarRepository'
+import IRentRepository from '../repositories/IRentRepository'
 
+@injectable()
 export default class RentCarService {
+  constructor(
+    @inject('CarRepository')
+    private carRepository: ICarRepository,
+    @inject('RentRepository')
+    private rentRepository: IRentRepository,
+  ) {}
+
   public async execute({
     id,
     date_From,
@@ -41,10 +50,7 @@ export default class RentCarService {
       throw new AppError('Realize login para alugar um carro')
     }
 
-    const rentRepository = getRepository(Rent)
-    const carRepository = getCustomRepository(CarRepository)
-
-    const car = await carRepository.findById(parseInt(id))
+    const car = await this.carRepository.findById(parseInt(id))
     if (!car) {
       throw new AppError('Carro não cadastrado', 404)
     }
@@ -86,14 +92,13 @@ export default class RentCarService {
     })
     const categoryPrice = GetRentPrice(car.category)
     const price = diffDays * categoryPrice
-    const rent = rentRepository.create({
-      car_Id: id,
+    const rent = await this.rentRepository.create({
+      id,
       user_Id,
       price,
       date_From: DateF,
       date_Until: DateU,
     })
-    await rentRepository.save(rent)
     return rent
   }
 }

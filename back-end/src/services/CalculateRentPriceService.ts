@@ -1,17 +1,23 @@
-import { getCustomRepository } from 'typeorm'
 import * as yup from 'yup'
 import DiffDays from '../utils/DiffDays'
-import CarRepository from '../database/repositories/CarRepository'
 import AppError from '../errors/AppError'
 import IRentCarDTO from '../dtos/IRentCarDTO'
 import GetRentPrice from '../utils/GetRentPrice'
+import { inject, injectable } from 'tsyringe'
+import ICarRepository from '../repositories/ICarRepository'
 
 interface IResponse {
   price: number
   diffDays: number
 }
 
+@injectable()
 export default class CalculateRentPriceService {
+  constructor(
+    @inject('CarRepository')
+    private carRepository: ICarRepository,
+  ) {}
+
   private price = 0
   public async execute({
     id,
@@ -36,11 +42,7 @@ export default class CalculateRentPriceService {
     })
 
     await schema.validate(data, { abortEarly: false })
-
-    const carRepository = getCustomRepository(CarRepository)
-
-    const car = await carRepository.findById(parseInt(id))
-
+    const car = await this.carRepository.findById(parseInt(id))
     if (!car) {
       throw new AppError('Carro não cadastrado', 404)
     }

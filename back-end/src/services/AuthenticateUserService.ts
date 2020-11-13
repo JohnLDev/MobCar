@@ -1,10 +1,10 @@
 import User from '../models/User'
 import { compare } from 'bcryptjs'
-import { getCustomRepository } from 'typeorm'
 import { sign } from 'jsonwebtoken'
 import authConfig from '../config/auth'
 import AppError from '../errors/AppError'
-import UserRepository from '../database/repositories/UserRepository'
+import { inject, injectable } from 'tsyringe'
+import IUserRepository from '../repositories/IUserRepository'
 
 interface IRequest {
   email: string
@@ -15,22 +15,28 @@ interface IResponse {
   token: string
 }
 
+@injectable()
 export default class AuthenticateUserService {
+  constructor(
+    @inject('UserRepository')
+    private userRepository: IUserRepository,
+  ) {}
+
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     if (!email || !password) {
-      throw new AppError('Please insert email and password to login')
+      throw new AppError('Por favor informe email e senha')
     }
-    const userRepository = getCustomRepository(UserRepository)
+
     email = email.toLocaleLowerCase()
-    const user = await userRepository.findByEmail(email)
+    const user = await this.userRepository.findByEmail(email)
     if (!user) {
-      throw new AppError('Incorrect email/password combination', 401)
+      throw new AppError('combinação incorreta de email/senha', 401)
     }
 
     const passwordMatched = await compare(password, user.password)
 
     if (!passwordMatched) {
-      throw new AppError('Incorrect email/password combination', 401)
+      throw new AppError('combinação incorreta de email/senha', 401)
     }
 
     const { secret, expiresIn } = authConfig.jwt

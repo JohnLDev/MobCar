@@ -1,11 +1,12 @@
 import { Request, Response } from 'express'
 import AuthenticateUserService from '../services/AuthenticateUserService'
 import CreateUserService from '../services/CreateUserService'
+import { container } from 'tsyringe'
 
 export default {
   async Login(request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body
-    const authenticateUserService = new AuthenticateUserService()
+    const authenticateUserService = container.resolve(AuthenticateUserService)
     const { user, token } = await authenticateUserService.execute({
       email,
       password,
@@ -19,7 +20,7 @@ export default {
   async SignUp(request: Request, response: Response): Promise<Response> {
     const { name, cpf, email, password, cellphone, birthdate } = request.body
 
-    const createUserService = new CreateUserService()
+    const createUserService = container.resolve(CreateUserService)
     const user = await createUserService.execute({
       name,
       cpf,

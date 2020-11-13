@@ -1,12 +1,20 @@
 import Car from '../models/Car'
 import CreateCarDTO from '../dtos/ICreateCarDTO'
 import * as yup from 'yup'
-import CarRepository from '../database/repositories/CarRepository'
-import UserRepository from '../database/repositories/UserRepository'
 import AppError from '../errors/AppError'
-import { getCustomRepository } from 'typeorm'
+import ICarRepository from '../repositories/ICarRepository'
+import { inject, injectable } from 'tsyringe'
+import IUserRepository from '../repositories/IUserRepository'
 
+@injectable()
 export default class AddCarService {
+  constructor(
+    @inject('CarRepository')
+    private carRepository: ICarRepository,
+    @inject('UserRepository')
+    private userRepository: IUserRepository,
+  ) {}
+
   public async execute({
     model,
     board,
@@ -23,6 +31,7 @@ export default class AddCarService {
       category,
       observations,
       url,
+      user_Id,
     }
     const schema = yup.object().shape({
       model: yup.string().required('Insira o modelo do carro'),
@@ -31,6 +40,7 @@ export default class AddCarService {
       category: yup.string().required('Insira categoria do carro'),
       observations: yup.string().required('Insira as observations do carro'),
       url: yup.string().url('Insira uma url válida'),
+      user_Id: yup.string().required('Insira o id id do usuario'),
     })
     await schema.validate(data, { abortEarly: false })
     category = category.toLocaleLowerCase() as 'padrao' | 'executivo' | 'vip'
@@ -41,9 +51,8 @@ export default class AddCarService {
     ) {
       throw new AppError('Categoria invalida (Padrao, Executivo, Vip)')
     }
-    const carRepository = getCustomRepository(CarRepository)
-    const userRepository = getCustomRepository(UserRepository)
-    const user = await userRepository.findById(user_Id)
+
+    const user = await this.userRepository.findById(user_Id)
     if (!user) {
       throw new AppError(
         'Você deve realizar login antes de adicionar um carro',
@@ -56,17 +65,16 @@ export default class AddCarService {
       )
     }
 
-    const boardAlreadyExists = await carRepository.findByBoard(board)
+    const boardAlreadyExists = await this.carRepository.findByBoard(board)
 
     if (boardAlreadyExists) {
       throw new AppError('Placa já registrada')
     }
-    const AlreadyRegistered = await carRepository.findByModel(model)
+    const AlreadyRegistered = await this.carRepository.findByModel(model)
     if (AlreadyRegistered) {
       data.category = AlreadyRegistered.category
     }
-    const car = carRepository.create(data)
-    await carRepository.save(car)
+    const car = await this.carRepository.create(data)
     return car
   }
 }

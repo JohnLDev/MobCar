@@ -1,19 +1,25 @@
 import Car from '../models/Car'
 import IIndexCarDTO from '../dtos/IIndexCarDTO'
-import { getCustomRepository } from 'typeorm'
-import CarRepository from '../database/repositories/CarRepository'
 import AppError from '../errors/AppError'
+import { inject, injectable } from 'tsyringe'
+import ICarRepository from '../repositories/ICarRepository'
 
+@injectable()
 export default class IndexCarService {
   private Cars: Car[] = []
+
+  constructor(
+    @inject('CarRepository')
+    private carRepository: ICarRepository,
+  ) {}
+
   public async execute({
     category,
     max,
     model,
     pag,
   }: IIndexCarDTO): Promise<Car[]> {
-    const carRepository = getCustomRepository(CarRepository)
-    this.Cars = await carRepository.find()
+    this.Cars = await this.carRepository.findAll()
 
     if (category) {
       this.Cars = this.Cars.filter(car => car.category === category)

@@ -1,21 +1,24 @@
-import CarRepository from '../database/repositories/CarRepository'
-import { getCustomRepository } from 'typeorm'
 import AppError from '../errors/AppError'
+import { inject, injectable } from 'tsyringe'
+import ICarRepository from '../repositories/ICarRepository'
 
 interface IRequest {
   id: string
 }
 
+@injectable()
 export default class DeleteCarService {
+  constructor(
+    @inject('CarRepository')
+    private carRepository: ICarRepository,
+  ) {}
+
   public async execute({ id }: IRequest): Promise<void> {
-    const carRepository = getCustomRepository(CarRepository)
-    const carExist = await carRepository.findOne({
-      where: { id: parseInt(id) },
-    })
+    const carExist = await this.carRepository.findOne(parseInt(id))
 
     if (!carExist) {
       throw new AppError('Carro não está cadastrado')
     }
-    await carRepository.delete(carExist)
+    await this.carRepository.delete(parseInt(id))
   }
 }

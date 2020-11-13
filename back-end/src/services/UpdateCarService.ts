@@ -1,11 +1,17 @@
 import IUpdateCarDTO from '../dtos/IUpdateCarDTO'
 import Car from '../models/Car'
 import * as yup from 'yup'
-import { getCustomRepository } from 'typeorm'
-import CarRepository from '../database/repositories/CarRepository'
 import AppError from '../errors/AppError'
+import { inject, injectable } from 'tsyringe'
+import ICarRepository from '../repositories/ICarRepository'
 
+@injectable()
 export default class UpdateCarService {
+  constructor(
+    @inject('CarRepository')
+    private carRepository: ICarRepository,
+  ) {}
+
   public async execute({
     id,
     user_Id,
@@ -38,13 +44,12 @@ export default class UpdateCarService {
     })
     await schema.validate(data)
 
-    const carRepository = getCustomRepository(CarRepository)
-    const car = await carRepository.findById(parseInt(id))
+    const car = await this.carRepository.findById(parseInt(id))
     if (!car) {
       throw new AppError('Carro não cadastrado', 404)
     }
     if (board) {
-      const boardAlreadyExists = await carRepository.findByBoard(board)
+      const boardAlreadyExists = await this.carRepository.findByBoard(board)
 
       if (boardAlreadyExists) {
         throw new AppError('Placa já registrada')
@@ -68,7 +73,7 @@ export default class UpdateCarService {
     }
 
     if (model) {
-      const AlreadyRegistered = await carRepository.findByModel(model)
+      const AlreadyRegistered = await this.carRepository.findByModel(model)
       if (AlreadyRegistered) {
         car.category = AlreadyRegistered.category
       }
@@ -80,7 +85,7 @@ export default class UpdateCarService {
     if (url) {
       car.url = url
     }
-    await carRepository.save(car)
+    await this.carRepository.update(car)
     return car
   }
 }

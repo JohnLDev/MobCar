@@ -1,11 +1,18 @@
 import User from '../models/User'
 import ICreateUserDTO from '../dtos/ICreateUserDTO'
-import { getRepository } from 'typeorm'
 import { hash } from 'bcryptjs'
 import * as yup from 'yup'
 import AppError from '../errors/AppError'
+import IUserRepository from '../repositories/IUserRepository'
+import { inject, injectable } from 'tsyringe'
 
+@injectable()
 export default class CreateUserService {
+  constructor(
+    @inject('UserRepository')
+    private userRepository: IUserRepository,
+  ) {}
+
   public async execute({
     name,
     cpf,
@@ -33,18 +40,16 @@ export default class CreateUserService {
     })
     await schema.validate(data)
 
-    const userRepository = getRepository(User)
+    const emailAlreadyRegistered = await this.userRepository.findByEmail(
+      data.email,
+    )
 
-    const emailAlreadyRegistered = await userRepository.findOne({
-      where: { email: data.email },
-    })
     if (emailAlreadyRegistered) {
       throw new AppError('Email já registrado')
     }
+    data.password = await hash(password, 8)
+    const user = await this.userRepository.create(data)
 
-    const user = userRepository.create(data)
-    user.password = await hash(password, 8)
-    await userRepository.save(user)
     return user
   }
 }
