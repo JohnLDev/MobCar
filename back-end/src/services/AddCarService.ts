@@ -32,7 +32,6 @@ export default class AddCarService {
     })
     await schema.validate(data, { abortEarly: false })
     category = category.toLocaleLowerCase() as 'padrao' | 'executivo' | 'vip'
-    console.log(category)
     if (
       category !== 'padrao' &&
       category !== 'executivo' &&
@@ -41,6 +40,11 @@ export default class AddCarService {
       throw new AppError('Categoria invalida (Padrão, Executivo, Vip)')
     }
     const carRepository = getCustomRepository(CarRepository)
+    const boardAlreadyExists = await carRepository.findByBoard(board)
+
+    if (boardAlreadyExists) {
+      throw new AppError('Placa já registrada')
+    }
     const AlreadyRegistered = await carRepository.findByModel(model)
     if (AlreadyRegistered) {
       data.category = AlreadyRegistered.category
