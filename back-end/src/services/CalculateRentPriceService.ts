@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm'
 import * as yup from 'yup'
 import DiffDays from '../utils/DiffDays'
-import CarRepository from '../repositories/CarRepository'
+import CarRepository from '../database/repositories/CarRepository'
 import AppError from '../errors/AppError'
 import IRentCarDTO from '../dtos/IRentCarDTO'
 import GetRentPrice from '../utils/GetRentPrice'
@@ -40,6 +40,7 @@ export default class CalculateRentPriceService {
     const carRepository = getCustomRepository(CarRepository)
 
     const car = await carRepository.findById(parseInt(id))
+
     if (!car) {
       throw new AppError('Carro não cadastrado', 404)
     }

@@ -1,8 +1,8 @@
 import Car from '../models/Car'
 import CreateCarDTO from '../dtos/ICreateCarDTO'
 import * as yup from 'yup'
-import CarRepository from '../repositories/CarRepository'
-import UserRepository from '../repositories/UserRepository'
+import CarRepository from '../database/repositories/CarRepository'
+import UserRepository from '../database/repositories/UserRepository'
 import AppError from '../errors/AppError'
 import { getCustomRepository } from 'typeorm'
 

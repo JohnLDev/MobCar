@@ -6,7 +6,7 @@ import { validate } from 'uuid'
 import AppError from '../errors/AppError'
 import DiffDays from '../utils/DiffDays'
 import GetRentPrice from '../utils/GetRentPrice'
-import CarRepository from '../repositories/CarRepository'
+import CarRepository from '../database/repositories/CarRepository'
 import { isAfter, isBefore, isEqual, setHours, startOfHour } from 'date-fns'
 
 export default class RentCarService {

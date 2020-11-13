@@ -1,7 +1,7 @@
 import Car from '../models/Car'
 import IIndexCarDTO from '../dtos/IIndexCarDTO'
 import { getCustomRepository } from 'typeorm'
-import CarRepository from '../repositories/CarRepository'
+import CarRepository from '../database/repositories/CarRepository'
 import AppError from '../errors/AppError'
 
 export default class IndexCarService {

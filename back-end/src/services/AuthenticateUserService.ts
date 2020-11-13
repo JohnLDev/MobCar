@@ -4,7 +4,7 @@ import { getCustomRepository } from 'typeorm'
 import { sign } from 'jsonwebtoken'
 import authConfig from '../config/auth'
 import AppError from '../errors/AppError'
-import UserRepository from '../repositories/UserRepository'
+import UserRepository from '../database/repositories/UserRepository'
 
 interface IRequest {
   email: string

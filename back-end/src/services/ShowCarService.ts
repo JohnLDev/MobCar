@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm'
 import AppError from '../errors/AppError'
 import Car from '../models/Car'
-import CarRepository from '../repositories/CarRepository'
+import CarRepository from '../database/repositories/CarRepository'
 
 interface IResquet {
   id: string

@@ -4,6 +4,7 @@ import IndexCarService from '../services/IndexCarService'
 import ShowCarService from '../services/ShowCarService'
 import CalculateRentPriceService from '../services/CalculateRentPriceService'
 import RentCarService from '../services/RentCarService'
+import DeleteCarService from '../services/DeleteCarService'
 
 export default {
   async AddCar(request: Request, response: Response): Promise<Response> {
@@ -71,5 +72,15 @@ export default {
     })
 
     return response.status(200).json(price)
+  },
+
+  async Delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params
+    const deleteCarService = new DeleteCarService()
+    await deleteCarService.execute({
+      id,
+    })
+
+    return response.status(200).json({ message: 'Deletado com sucesso' })
   },
 }

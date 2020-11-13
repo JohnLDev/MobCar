@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm'
 
-import Car from '../models/Car'
+import Car from '../../models/Car'
 
 @EntityRepository(Car)
 class CarRepository extends Repository<Car> {
