@@ -5,6 +5,7 @@ import ShowCarService from '../services/ShowCarService'
 import CalculateRentPriceService from '../services/CalculateRentPriceService'
 import RentCarService from '../services/RentCarService'
 import DeleteCarService from '../services/DeleteCarService'
+import UpdateCarService from '../services/UpdateCarService'
 
 export default {
   async AddCar(request: Request, response: Response): Promise<Response> {
@@ -21,6 +22,24 @@ export default {
       user_Id,
     })
     return response.status(201).json(car)
+  },
+
+  async UpdateCar(request: Request, response: Response): Promise<Response> {
+    const { model, board, color, category, observations, url } = request.body
+    const user_Id = request.user.id
+    const { id } = request.params
+    const updateCarService = new UpdateCarService()
+    const car = await updateCarService.execute({
+      model,
+      id,
+      board,
+      color,
+      category,
+      observations,
+      url,
+      user_Id,
+    })
+    return response.status(200).json(car)
   },
 
   async Index(request: Request, response: Response): Promise<Response> {
