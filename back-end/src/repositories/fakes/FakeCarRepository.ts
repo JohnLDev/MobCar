@@ -1,7 +1,8 @@
 import ICreateCarDTO from '../../dtos/ICreateCarDTO'
 import Car from '../../models/Car'
+import ICarRepository from '../ICarRepository'
 
-export default class FakeCarRepository {
+export default class FakeCarRepository implements ICarRepository {
   private cars: Car[] = []
 
   public async create({
