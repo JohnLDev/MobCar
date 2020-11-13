@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import AddCarService from '../services/AddCarService'
 import IndexCarService from '../services/IndexCarService'
 import ShowCarService from '../services/ShowCarService'
+import CalculateRentPriceService from '../services/CalculateRentPriceService'
 
 export default {
   async AddCar(request: Request, response: Response): Promise<Response> {
@@ -41,5 +42,18 @@ export default {
     })
 
     return response.status(200).json(cars)
+  },
+
+  async RentPrice(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params
+    const { date_From, date_Until } = request.body
+    const calculateRentPriceService = new CalculateRentPriceService()
+    const price = await calculateRentPriceService.execute({
+      id,
+      date_From,
+      date_Until,
+    })
+
+    return response.status(200).json(price)
   },
 }
