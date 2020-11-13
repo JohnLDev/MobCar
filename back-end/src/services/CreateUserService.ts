@@ -3,6 +3,7 @@ import ICreateUserDTO from '../dtos/ICreateUserDTO'
 import { getRepository } from 'typeorm'
 import { hash } from 'bcryptjs'
 import * as yup from 'yup'
+import AppError from '../errors/AppError'
 
 export default class CreateUserService {
   public async execute({
@@ -29,10 +30,17 @@ export default class CreateUserService {
       cellphone: yup.number().required('Insira seu numero de contato'),
       birthdate: yup.string().required('Insira sua data de nascimento'),
     })
-
     await schema.validate(data)
 
     const userRepository = getRepository(User)
+
+    const emailAlreadyRegistered = await userRepository.findOne({
+      where: { email: data.email },
+    })
+    if (emailAlreadyRegistered) {
+      throw new AppError('Email já registrado')
+    }
+
     const user = userRepository.create(data)
     user.password = await hash(password, 8)
     await userRepository.save(user)
