@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import AuthenticateUserService from '../services/AuthenticateUserService'
 import CreateUserService from '../services/CreateUserService'
 import { container } from 'tsyringe'
+import UserView from '../views/UserView'
 
 export default {
   async Login(request: Request, response: Response): Promise<Response> {
@@ -12,7 +13,7 @@ export default {
       password,
     })
     return response.status(200).json({
-      user: user,
+      user: UserView.render(user),
       token,
     })
   },
@@ -29,6 +30,6 @@ export default {
       cellphone,
       birthdate,
     })
-    return response.status(201).json(user)
+    return response.status(201).json(UserView.render(user))
   },
 }

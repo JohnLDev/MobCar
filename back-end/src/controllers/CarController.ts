@@ -7,6 +7,8 @@ import RentCarService from '../services/RentCarService'
 import DeleteCarService from '../services/DeleteCarService'
 import UpdateCarService from '../services/UpdateCarService'
 import { container } from 'tsyringe'
+import RentView from '../views/RentView'
+import CarView from '../views/CarView'
 
 export default {
   async AddCar(request: Request, response: Response): Promise<Response> {
@@ -22,7 +24,7 @@ export default {
       url,
       user_Id,
     })
-    return response.status(201).json(car)
+    return response.status(201).json(CarView.render(car))
   },
 
   async UpdateCar(request: Request, response: Response): Promise<Response> {
@@ -39,7 +41,7 @@ export default {
       url,
       user_Id,
     })
-    return response.status(200).json(car)
+    return response.status(200).json(CarView.render(car))
   },
 
   async Index(request: Request, response: Response): Promise<Response> {
@@ -52,7 +54,7 @@ export default {
       pag: pag as 'asc' | 'desc',
     })
 
-    return response.status(200).json(cars)
+    return response.status(200).json(CarView.renderMany(cars))
   },
 
   async Show(request: Request, response: Response): Promise<Response> {
@@ -85,14 +87,14 @@ export default {
     const { date_From, date_Until } = request.body
     const user_Id = request.user.id
     const rentCarService = container.resolve(RentCarService)
-    const price = await rentCarService.execute({
+    const rent = await rentCarService.execute({
       id,
       date_From,
       date_Until,
       user_Id,
     })
 
-    return response.status(200).json(price)
+    return response.status(200).json(RentView.render(rent))
   },
 
   async Delete(request: Request, response: Response): Promise<Response> {

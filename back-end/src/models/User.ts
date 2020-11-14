@@ -27,7 +27,7 @@ export default class User {
   @Column()
   is_Adm?: boolean
 
-  @OneToMany(() => Rent, rent => rent.user)
+  @OneToMany(() => Rent, rent => rent.user, { eager: true })
   rents: Rent[]
 
   @Column()
