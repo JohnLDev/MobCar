@@ -13,7 +13,16 @@ export default class FakeRentRepository implements IRentRepository {
     price,
   }: IRentCarRepositoryDTO): Promise<Rent> {
     const rent = new Rent()
-    Object.assign(rent, { car_Id, date_From, date_Until, user_Id, price })
+    Object.assign(rent, {
+      id: this.rents.length + 1,
+      car_Id,
+      date_From,
+      date_Until,
+      user_Id,
+      price,
+      created_at: new Date(2020, 11, 11),
+      updated_at: new Date(2020, 11, 11),
+    })
 
     this.rents.push(rent)
     return rent

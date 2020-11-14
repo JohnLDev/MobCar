@@ -14,7 +14,17 @@ export default class FakeCarRepository implements ICarRepository {
     url,
   }: ICreateCarDTO): Promise<Car> {
     const car = new Car()
-    Object.assign(car, { model, board, category, color, observations, url })
+    Object.assign(car, {
+      id: this.cars.length + 1,
+      model,
+      board,
+      category,
+      color,
+      observations,
+      url,
+      created_at: new Date(2020, 11, 11),
+      updated_at: new Date(2020, 11, 11),
+    })
 
     this.cars.push(car)
 
