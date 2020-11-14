@@ -22,12 +22,21 @@ export default class IndexCarService {
     this.Cars = await this.carRepository.findAll()
 
     if (category) {
+      category = category.toLocaleLowerCase() as typeof category
+      if (
+        category !== 'vip' &&
+        category !== 'padrao' &&
+        category !== 'executivo'
+      ) {
+        throw new AppError('Categoria invalida (Padrao, Executivo, Vip)')
+      }
       this.Cars = this.Cars.filter(car => car.category === category)
     }
     if (model) {
+      model = model.toLocaleLowerCase()
       this.Cars = this.Cars.filter(car => car.model === model)
     }
-    if (max) {
+    if (max && this.Cars.length >= max) {
       this.Cars.length = max
     }
 
@@ -35,15 +44,18 @@ export default class IndexCarService {
       if (pag !== 'asc' && pag !== 'desc') {
         throw new AppError('Filtro Desconhecido')
       }
-      if (pag === 'asc') {
-        this.Cars.sort((a, b) => {
-          return a.model > b.model ? 1 : b.model > a.model ? -1 : 0
-        })
-      }
-      if (pag === 'desc') {
-        this.Cars.sort((a, b) => {
-          return a.model < b.model ? 1 : b.model < a.model ? -1 : 0
-        })
+      switch (pag) {
+        case 'asc':
+          this.Cars = this.Cars.sort((a, b) => {
+            return a.model > b.model ? 1 : b.model > a.model ? -1 : 0
+          })
+          break
+
+        case 'desc':
+          this.Cars = this.Cars.sort((a, b) => {
+            return a.model < b.model ? 1 : b.model < a.model ? -1 : 0
+          })
+          break
       }
     }
     return this.Cars

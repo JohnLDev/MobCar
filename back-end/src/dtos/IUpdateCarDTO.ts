@@ -4,7 +4,6 @@ export default interface IUpdateCarDTO {
   board?: string
   color?: string
   observations?: string
-  category?: 'padrao' | 'executivo' | 'vip'
   url?: string
   user_Id: string
 }

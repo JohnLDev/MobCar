@@ -16,7 +16,6 @@ export default class UpdateCarService {
     id,
     user_Id,
     board,
-    category,
     color,
     model,
     observations,
@@ -26,7 +25,6 @@ export default class UpdateCarService {
       id,
       user_Id,
       board,
-      category,
       color,
       model,
       observations,
@@ -36,7 +34,6 @@ export default class UpdateCarService {
       id: yup.string().required('Insira o identificador do carro'),
       user_Id: yup.string().required('Insira o identificador do usuario'),
       board: yup.string(),
-      category: yup.string(),
       color: yup.string(),
       model: yup.string(),
       observations: yup.string(),
@@ -55,17 +52,6 @@ export default class UpdateCarService {
         throw new AppError('Placa já registrada')
       }
       car.board = board
-    }
-    if (category) {
-      category = category.toLocaleLowerCase() as 'padrao' | 'executivo' | 'vip'
-      if (
-        category !== 'padrao' &&
-        category !== 'executivo' &&
-        category !== 'vip'
-      ) {
-        throw new AppError('Categoria invalida (Padrao, Executivo, Vip)')
-      }
-      car.category = category
     }
 
     if (color) {

@@ -44,7 +44,7 @@ export default class AddCarService {
     })
     await schema.validate(data, { abortEarly: false })
     model = model.toLocaleLowerCase()
-    category = category.toLocaleLowerCase() as 'padrao' | 'executivo' | 'vip'
+    category = category.toLocaleLowerCase() as typeof category
     if (
       category !== 'padrao' &&
       category !== 'executivo' &&
