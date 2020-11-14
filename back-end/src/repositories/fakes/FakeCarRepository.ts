@@ -22,6 +22,15 @@ export default class FakeCarRepository implements ICarRepository {
       color,
       observations,
       url,
+      rents: [
+        {
+          id: 22,
+          date_From: new Date(3020, 11, 1),
+          date_Until: new Date(3020, 11, 15),
+          created_at: new Date(3020, 12, 12),
+          updated_at: new Date(3020, 12, 12),
+        },
+      ],
       created_at: new Date(2020, 11, 11),
       updated_at: new Date(2020, 11, 11),
     })

@@ -15,7 +15,7 @@ export default class FakeRentRepository implements IRentRepository {
     const rent = new Rent()
     Object.assign(rent, {
       id: this.rents.length + 1,
-      car_Id,
+      car_Id: Number(car_Id),
       date_From,
       date_Until,
       user_Id,
@@ -23,7 +23,6 @@ export default class FakeRentRepository implements IRentRepository {
       created_at: new Date(2020, 11, 11),
       updated_at: new Date(2020, 11, 11),
     })
-
     this.rents.push(rent)
     return rent
   }

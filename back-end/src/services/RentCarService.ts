@@ -56,6 +56,9 @@ export default class RentCarService {
     }
     const { diffDays, DateF, DateU } = DiffDays({ date_From, date_Until })
 
+    if (isBefore(DateU, DateF)) {
+      throw new AppError('Data inválida')
+    }
     if (
       isBefore(DateF, startOfHour(setHours(Date.now(), 0.0))) ||
       isBefore(DateU, startOfHour(setHours(Date.now(), 0.0))) ||
