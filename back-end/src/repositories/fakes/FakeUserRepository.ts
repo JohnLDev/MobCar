@@ -1,7 +1,7 @@
 import ICreateUserDTO from '../../dtos/ICreateUserDTO'
 import User from '../../models/User'
 import IUserRepository from '../IUserRepository'
-
+import { v4 } from 'uuid'
 export default class FakeUserRepository implements IUserRepository {
   private users: User[] = []
 
@@ -16,12 +16,15 @@ export default class FakeUserRepository implements IUserRepository {
     const user = new User()
 
     Object.assign(user, {
+      id: v4(),
       name,
       email,
       password,
       cpf,
       birthdate,
       cellphone,
+      created_at: new Date(2020, 11, 11),
+      updated_at: new Date(2020, 11, 11),
     })
     this.users.push(user)
     return user
