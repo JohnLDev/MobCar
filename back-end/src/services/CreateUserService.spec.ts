@@ -14,6 +14,7 @@ describe('CreateUserService', () => {
       password: await hash('admin', 8),
       cellphone: 53984523422,
       birthdate: new Date(2020, 11, 11),
+      is_Adm: false,
     })
 
     expect(user).toHaveProperty('id')
@@ -25,7 +26,7 @@ describe('CreateUserService', () => {
       name: 'admin',
       cpf: '000.138.060-50',
       email: 'admin@admin.com',
-      password: await hash('admin', 8),
+      password: 'admin',
       cellphone: 53984523422,
       birthdate: new Date(2020, 11, 11),
     })
@@ -34,7 +35,7 @@ describe('CreateUserService', () => {
         name: 'admin',
         cpf: '000.138.060-50',
         email: 'admin@admin.com',
-        password: await hash('admin', 8),
+        password: 'admin',
         cellphone: 53984523422,
         birthdate: new Date(2020, 11, 11),
       }),

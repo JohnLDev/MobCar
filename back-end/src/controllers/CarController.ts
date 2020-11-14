@@ -26,7 +26,7 @@ export default {
   },
 
   async UpdateCar(request: Request, response: Response): Promise<Response> {
-    const { model, board, color, category, observations, url } = request.body
+    const { model, board, color, observations, url } = request.body
     const user_Id = request.user.id
     const { id } = request.params
     const updateCarService = container.resolve(UpdateCarService)
@@ -35,7 +35,6 @@ export default {
       id,
       board,
       color,
-      category,
       observations,
       url,
       user_Id,
