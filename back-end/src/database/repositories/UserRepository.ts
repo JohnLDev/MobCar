@@ -18,6 +18,7 @@ class UserRepository implements IUserRepository {
     cpf,
     birthdate,
     cellphone,
+    is_Adm,
   }: ICreateUserDTO): Promise<User> {
     const user = this.ormRepository.create({
       name,
@@ -26,6 +27,7 @@ class UserRepository implements IUserRepository {
       cpf,
       birthdate,
       cellphone,
+      is_Adm,
     })
     await this.ormRepository.save(user)
     return user

@@ -20,8 +20,12 @@ export default class CreateUserService {
     password,
     cellphone,
     birthdate,
+    is_Adm,
   }: ICreateUserDTO): Promise<User> {
     email = email.toLocaleLowerCase()
+    if (!is_Adm) {
+      is_Adm = false
+    }
     const data = {
       name,
       cpf,
@@ -29,6 +33,7 @@ export default class CreateUserService {
       password,
       cellphone,
       birthdate,
+      is_Adm,
     }
     const schema = yup.object().shape({
       name: yup.string().required('Insira seu nome'),
@@ -37,6 +42,7 @@ export default class CreateUserService {
       password: yup.string().required('Insira sua senha'),
       cellphone: yup.number().required('Insira seu numero de contato'),
       birthdate: yup.string().required('Insira sua data de nascimento'),
+      is_Adm: yup.boolean(),
     })
     await schema.validate(data)
 

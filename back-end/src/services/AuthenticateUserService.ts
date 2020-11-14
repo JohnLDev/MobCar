@@ -1,10 +1,12 @@
 import User from '../models/User'
+import 'reflect-metadata'
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import authConfig from '../config/auth'
 import AppError from '../errors/AppError'
 import { inject, injectable } from 'tsyringe'
 import IUserRepository from '../repositories/IUserRepository'
+import * as yup from 'yup'
 
 interface IRequest {
   email: string
@@ -26,6 +28,9 @@ export default class AuthenticateUserService {
     if (!email || !password) {
       throw new AppError('Por favor informe email e senha')
     }
+    const schema = yup.string().email().required()
+
+    await schema.validate(email)
 
     email = email.toLocaleLowerCase()
     const user = await this.userRepository.findByEmail(email)

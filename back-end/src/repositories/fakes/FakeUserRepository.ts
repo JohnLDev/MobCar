@@ -12,6 +12,7 @@ export default class FakeUserRepository implements IUserRepository {
     cpf,
     birthdate,
     cellphone,
+    is_Adm,
   }: ICreateUserDTO): Promise<User> {
     const user = new User()
 
@@ -19,10 +20,11 @@ export default class FakeUserRepository implements IUserRepository {
       id: v4(),
       name,
       email,
-      password,
+      password: password,
       cpf,
       birthdate,
       cellphone,
+      is_Adm,
       created_at: new Date(2020, 11, 11),
       updated_at: new Date(2020, 11, 11),
     })
