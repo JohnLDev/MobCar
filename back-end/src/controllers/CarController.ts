@@ -98,9 +98,11 @@ export default {
 
   async Delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
+    const user_Id = request.user.id
     const deleteCarService = container.resolve(DeleteCarService)
     await deleteCarService.execute({
       id,
+      user_Id,
     })
 
     return response.status(200).json({ message: 'Deletado com sucesso' })
