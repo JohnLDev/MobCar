@@ -34,7 +34,11 @@ export default {
       cpf: user.cpf,
       cellphone: user.cellphone,
       birthdate: user.birthdate,
-      rents: user.rents.length > 0 ? RentView.renderMany(user.rents) : [],
+      rents: user.rents
+        ? user.rents.length > 0
+          ? RentView.renderMany(user.rents)
+          : []
+        : [],
       created_at: user.created_at
         ? FormatDate(user.created_at)
         : FormatDate(new Date(Date.now())),

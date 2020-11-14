@@ -4,12 +4,15 @@ import * as yup from 'yup'
 import AppError from '../errors/AppError'
 import { inject, injectable } from 'tsyringe'
 import ICarRepository from '../repositories/ICarRepository'
+import IUserRepository from '../repositories/IUserRepository'
 
 @injectable()
 export default class UpdateCarService {
   constructor(
     @inject('CarRepository')
     private carRepository: ICarRepository,
+    @inject('UserRepository')
+    private userRepository: IUserRepository,
   ) {}
 
   public async execute({
@@ -21,6 +24,10 @@ export default class UpdateCarService {
     observations,
     url,
   }: IUpdateCarDTO): Promise<Car> {
+    const user = await this.userRepository.findById(user_Id)
+    if (!user || (user && !user.is_Adm)) {
+      throw new AppError('Você precisa estar logado e ser um administrador')
+    }
     const data = {
       id,
       user_Id,

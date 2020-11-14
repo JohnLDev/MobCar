@@ -9,7 +9,10 @@ describe('UpdateCarService', () => {
   it('should be able to update a car', async () => {
     const fakeUserRepository = new FakeUserRepository()
     const fakeCarRepository = new FakeCarRepository()
-    const updateCarService = new UpdateCarService(fakeCarRepository)
+    const updateCarService = new UpdateCarService(
+      fakeCarRepository,
+      fakeUserRepository,
+    )
     const addCarService = new AddCarService(
       fakeCarRepository,
       fakeUserRepository,
@@ -59,7 +62,10 @@ describe('UpdateCarService', () => {
   it('should be not able to update a car to an existent board', async () => {
     const fakeUserRepository = new FakeUserRepository()
     const fakeCarRepository = new FakeCarRepository()
-    const updateCarService = new UpdateCarService(fakeCarRepository)
+    const updateCarService = new UpdateCarService(
+      fakeCarRepository,
+      fakeUserRepository,
+    )
     const addCarService = new AddCarService(
       fakeCarRepository,
       fakeUserRepository,
@@ -110,7 +116,10 @@ describe('UpdateCarService', () => {
   it('should be not able to update a car that does not exist', async () => {
     const fakeUserRepository = new FakeUserRepository()
     const fakeCarRepository = new FakeCarRepository()
-    const updateCarService = new UpdateCarService(fakeCarRepository)
+    const updateCarService = new UpdateCarService(
+      fakeCarRepository,
+      fakeUserRepository,
+    )
 
     const createUserService = new CreateUserService(fakeUserRepository)
     const user = await createUserService.execute({
@@ -121,6 +130,38 @@ describe('UpdateCarService', () => {
       cellphone: 53984523422,
       birthdate: new Date(2020, 11, 11),
       is_Adm: true,
+    })
+
+    await expect(
+      updateCarService.execute({
+        id: '50',
+        user_Id: user.id,
+        board: 'icl9090',
+        color: 'red',
+        model: 'voyage',
+        observations: 'capo amaçado',
+        url: 'http://localhost.com',
+      }),
+    ).rejects.toBeInstanceOf(AppError)
+  })
+
+  it('should be not able to update a car without an admin user', async () => {
+    const fakeUserRepository = new FakeUserRepository()
+    const fakeCarRepository = new FakeCarRepository()
+    const updateCarService = new UpdateCarService(
+      fakeCarRepository,
+      fakeUserRepository,
+    )
+
+    const createUserService = new CreateUserService(fakeUserRepository)
+    const user = await createUserService.execute({
+      name: 'admin',
+      cpf: '000.138.060-50',
+      email: 'admin@admin.com',
+      password: 'admin',
+      cellphone: 53984523422,
+      birthdate: new Date(2020, 11, 11),
+      is_Adm: false,
     })
 
     await expect(

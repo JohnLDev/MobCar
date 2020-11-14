@@ -1,5 +1,17 @@
 import Car from '../models/Car'
 import FormatDate from '../utils/FormatDate'
+import RentView from '../views/RentView'
+
+interface IRentResponse {
+  id: number
+  date_From: string
+  date_Until: string
+  price: number
+  user_Id: string
+  car_Id: string
+  created_at: string
+  updated_at: string
+}
 
 interface IResponse {
   id: number
@@ -8,6 +20,7 @@ interface IResponse {
   color: string
   observations: string
   url: string
+  rents: IRentResponse[]
   category: 'padrao' | 'executivo' | 'vip'
   created_at: string
   updated_at: string
@@ -22,6 +35,7 @@ export default {
       observations: car.observations,
       url: car.url,
       category: car.category,
+      rents: car.rents ? RentView.renderMany(car.rents) : [],
       created_at: car.created_at
         ? FormatDate(car.created_at)
         : FormatDate(new Date(Date.now())),

@@ -60,11 +60,11 @@ export default {
   async Show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
     const showCarService = container.resolve(ShowCarService)
-    const cars = await showCarService.execute({
+    const car = await showCarService.execute({
       id,
     })
 
-    return response.status(200).json(cars)
+    return response.status(200).json(CarView.render(car))
   },
 
   async RentPrice(request: Request, response: Response): Promise<Response> {
