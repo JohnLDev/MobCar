@@ -2,12 +2,13 @@ import styled from 'styled-components'
 
 export const FooterDiv = styled.div`
   height: 60px;
+  min-height: 60px;
   width: 100%;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+
   bottom: 0;
   z-index: 5;
 

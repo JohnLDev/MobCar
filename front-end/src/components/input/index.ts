@@ -9,6 +9,9 @@ export const Input = styled.input`
   border-radius: 4px;
   background: #ffffff;
   margin-bottom: 16px;
+  @media (min-width: 700px) {
+    max-width: 390px;
+  }
 `
 export const SelectInput = styled.select`
   border: 1px solid #262626;
@@ -19,6 +22,9 @@ export const SelectInput = styled.select`
   border-radius: 4px;
   background: #ffffff;
   margin-bottom: 16px;
+  @media (min-width: 700px) {
+    max-width: 390px;
+  }
 
   option {
     border: 1px solid #262626;

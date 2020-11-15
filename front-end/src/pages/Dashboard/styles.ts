@@ -7,13 +7,16 @@ export const Page = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  @media (min-width: 700px) {
+    align-items: center;
+  }
 `
 
 export const Container = styled.div`
   width: 100%;
-  height: 100%;
-  max-height: 100%;
+
   padding: 16px;
+  flex-grow: 1;
   overflow: auto;
   &::-webkit-scrollbar {
     display: none;
@@ -38,6 +41,9 @@ export const Container = styled.div`
     width: 100%;
     background-color: #000;
   }
+  @media (min-width: 700px) {
+    max-width: 686px;
+  }
 `
 
 export const CarContainer = styled.div`
@@ -61,23 +67,21 @@ export const CarContainer = styled.div`
       font-family: Helvetica;
       font-size: 14px;
       line-height: 16.1px;
-      letter-spacing: 8%;
       font-weight: 700;
     }
     p {
       font-family: Helvetica;
       font-size: 14px;
       line-height: 16.1px;
-      letter-spacing: 8%;
       font-weight: 400;
       color: #595959;
     }
     .invisible-button {
       span {
+        text-justify: flex-start;
         font-family: Helvetica;
         font-size: 10px;
         line-height: 11.5px;
-        letter-spacing: 8%;
         font-weight: 300;
         color: #00adee;
       }
@@ -99,102 +103,47 @@ export const CarContainer = styled.div`
   .linebottom {
     margin-top: 16px;
     margin-bottom: 16px;
-    height: 0.5px;
+    height: 1px;
     width: 100%;
     background-color: #000;
   }
-`
-
-export const ModalUser = styled.div`
-  width: 100%;
-  height: 100%;
-  border-radius: 24px;
-  display: flex;
-  flex-direction: column;
-  padding-left: 16px;
-  padding-right: 16px;
-  align-items: center;
-  .modal-title {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    .title-title {
+  @media (min-width: 700px) {
+    max-width: 686px;
+    position: relative;
+    .infocar {
+      height: 100%;
+      margin-left: 16px;
       display: flex;
-      align-items: center;
-      img {
-        margin-left: 1.5px;
-        margin-right: 9.5px;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      h4 {
+        font-size: 20px;
+        line-height: 18px;
+      }
+      p {
+        font-size: 20px;
+        line-height: 18px;
+      }
+      .invisible-button {
+        span {
+          font-size: 16px;
+          line-height: 18px;
+          font-weight: 400;
+        }
+        border: 0;
+        background: 0;
       }
     }
-  }
-  .foto {
-    height: 120px;
-    width: 100%;
-    max-width: 310px;
-    border-radius: 12px;
-    margin-top: 19px;
-    margin-bottom: 13px;
-  }
-  .infos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: space-between;
-    width: 100%;
-    height: 70px;
-  }
-  .buttons {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    z-index: 10;
-    .frist {
-      margin-right: 8px;
+    .dots {
+    }
+    .car-image {
+      width: 80px;
+      height: 80px;
     }
   }
 `
-export const ModalAdm = styled.div`
-  width: 100%;
-  height: 100%;
-  border-radius: 24px;
-  display: flex;
-  flex-direction: column;
-  padding-left: 16px;
-  padding-right: 16px;
-  align-items: center;
 
-  .invisible-button {
-    border: 0;
-    background: 0;
-  }
-  .modal-title {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    .title-title {
-      display: flex;
-      align-items: center;
-      img {
-        margin-left: 1.5px;
-        margin-right: 9.5px;
-      }
-    }
-  }
-  .modal-title {
-    margin-bottom: 16px;
-  }
-  form {
-    width: 100%;
-    .buttons {
-      display: flex;
-      justify-content: flex-end;
-      width: 100%;
-      z-index: 10;
-      .frist {
-        margin-right: 8px;
-      }
-    }
-  }
-`
 export const ModalOptions = styled.ul`
   right: 45px;
   position: absolute;
@@ -209,6 +158,10 @@ export const ModalOptions = styled.ul`
   justify-content: center;
   width: 77px;
   height: 128px;
+  @media (min-width: 700px) {
+    right: 30px;
+    position: relative to bottom;
+  }
 
   li {
     cursor: pointer;

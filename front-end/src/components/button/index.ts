@@ -11,4 +11,8 @@ export const Button = styled.button<ButtonProps>`
   border-color: #000;
   background-color: ${props => props.color};
   border-radius: 8px;
+  @media (min-width: 700px) {
+    height: 38px;
+    width: 122px;
+  }
 `

@@ -94,3 +94,21 @@ export const AdminPanelTitle = styled.h3`
   margin-top: 32px;
   margin-bottom: 32px;
 `
+
+export const Welcome = styled.div`
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+
+  align-items: center;
+  .logout {
+    margin-top: 8px;
+    margin-right: 8px;
+    margin-bottom: 36px;
+    display: flex;
+
+    justify-content: flex-end;
+    width: 100%;
+  }
+`

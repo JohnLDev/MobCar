@@ -22,7 +22,6 @@ export default class CreateUserService {
     birthdate,
     is_Adm,
   }: ICreateUserDTO): Promise<User> {
-    email = email.toLocaleLowerCase()
     if (!is_Adm) {
       is_Adm = false
     }
@@ -45,7 +44,7 @@ export default class CreateUserService {
       is_Adm: yup.boolean(),
     })
     await schema.validate(data)
-
+    data.email = data.email.toLocaleLowerCase()
     const emailAlreadyRegistered = await this.userRepository.findByEmail(
       data.email,
     )
