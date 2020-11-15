@@ -10,10 +10,12 @@ import DeleteLater from '../../assets/deletelater.png'
 import ModalCar from '../../assets/ModalCar.svg'
 import Modal from '../../components/modal'
 import { FiX } from 'react-icons/fi'
+import MiniModal from '../../components/minimodal'
 
 const Dashboard: React.FC = () => {
   const [isViewMoreModalVisible, setIsViewMoreModalVisible] = useState(false)
   const [isAdmModalVisible, setIsAdmModalVisible] = useState(false)
+  const [isMiniModalVisible, setIsMiniModalVisible] = useState(false)
   const [imageToDisplay, setImageToDisplay] = useState(
     'https://exame.com/wp-content/uploads/2020/07/HB20-2020-AUTOM%C3%81TICO-DIVULGA%C3%87%C3%83O.jpg',
   )
@@ -121,7 +123,11 @@ const Dashboard: React.FC = () => {
                 </div>
               </div>
 
-              <button className='dots'>
+              <button
+                className='dots'
+                onClick={() => setIsMiniModalVisible(true)}
+              >
+                {isMiniModalVisible ? <MiniModal></MiniModal> : null}
                 <img src={ThreeDots} alt='3 pontos' />
               </button>
             </div>

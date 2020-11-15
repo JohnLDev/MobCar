@@ -9,6 +9,7 @@ export const FooterDiv = styled.div`
   justify-content: center;
   position: absolute;
   bottom: 0;
+  z-index: 5;
 
   background-color: #000000;
   img {
