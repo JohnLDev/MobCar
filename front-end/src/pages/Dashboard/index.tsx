@@ -19,6 +19,7 @@ const Dashboard: React.FC = () => {
   const [isEditModalVisible, setEditModalVisible] = useState(false)
   const [miniModalVisible, setMiniModalVisible] = useState(0)
   const [cars, setCars] = useState<Car[]>([])
+  const [carToShow, setCarToShow] = useState<Car>({} as Car)
   const { user } = useAuth()
 
   useEffect(() => {
@@ -26,6 +27,11 @@ const Dashboard: React.FC = () => {
       setCars(response.data)
     })
   }, [])
+
+  function handleViewMoreModal(car: Car): void {
+    setCarToShow(car)
+    setIsViewMoreModalVisible(true)
+  }
 
   function handleOpenMiniModal(id: number): void {
     setIsMiniModalVisible(true)
@@ -52,14 +58,25 @@ const Dashboard: React.FC = () => {
       return
     }
     toast.info('Car deleted')
+    const newCars = cars.filter(car => car.id !== id)
+    setCars(newCars)
   }
 
-  function handleOpenEditModal(): void {
+  function handleOpenEditModal(car: Car): void {
     if (!user || (user && !user.is_Adm)) {
       toast.error('You dont have permission to edit a car')
       return
     }
-    setIsMiniModalVisible(true)
+    setCarToShow(car)
+    setEditModalVisible(true)
+  }
+
+  function handleOpenAddModal(): void {
+    if (!user || (user && !user.is_Adm)) {
+      toast.error('You dont have permission to add a new car')
+      return
+    }
+    setIsAdmModalVisible(true)
   }
   return (
     <>
@@ -75,10 +92,7 @@ const Dashboard: React.FC = () => {
           <div>
             <div className='title'>
               <h5>Choose one</h5>
-              <Button
-                onClick={() => setIsAdmModalVisible(true)}
-                color='#000000'
-              >
+              <Button onClick={handleOpenAddModal} color='#000000'>
                 Add new
               </Button>
               {isAdmModalVisible ? (
@@ -108,12 +122,13 @@ const Dashboard: React.FC = () => {
                     </p>
                     <button
                       className='invisible-button'
-                      onClick={() => setIsViewMoreModalVisible(true)}
+                      onClick={() => handleViewMoreModal(car)}
                     >
                       <span>View more</span>
                     </button>
                     {isViewMoreModalVisible ? (
                       <UserModal
+                        car={carToShow}
                         OnClose={() => setIsViewMoreModalVisible(false)}
                       />
                     ) : null}
@@ -130,7 +145,7 @@ const Dashboard: React.FC = () => {
                   <ModalOptions>
                     <li
                       onClick={() => {
-                        setIsViewMoreModalVisible(true)
+                        handleViewMoreModal(car)
                         setIsMiniModalVisible(false)
                       }}
                     >
@@ -138,7 +153,7 @@ const Dashboard: React.FC = () => {
                     </li>
                     <li
                       onClick={() => {
-                        handleOpenEditModal()
+                        handleOpenEditModal(car)
                         setIsMiniModalVisible(false)
                       }}
                     >
@@ -157,6 +172,7 @@ const Dashboard: React.FC = () => {
                 ) : null}
                 {isEditModalVisible ? (
                   <AdmModal
+                    car={carToShow}
                     to='Edit'
                     OnClose={() => {
                       setEditModalVisible(false)
