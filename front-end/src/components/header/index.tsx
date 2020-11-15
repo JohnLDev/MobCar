@@ -1,21 +1,14 @@
 /* eslint-disable no-use-before-define */
 import React, { useState } from 'react'
-import { HeaderDiv, SideBar } from './styles'
+import { HeaderDiv, SideBar, AdminPanelTitle, LoginDiv } from './styles'
 import Logo from '../../assets/Logo.svg'
 import HeaderOpenMenu from '../../assets/HeaderOpenMenu.svg'
+import { Input } from '../input'
+import { Button } from '../button'
 const Header: React.FC = () => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false)
-  function handleSideBar(): void {
-    switch (isOpenSideBar) {
-      case true:
-        setIsOpenSideBar(false)
-        break
+  const [isNewUser, setIsNewUser] = useState(false)
 
-      case false:
-        setIsOpenSideBar(true)
-        break
-    }
-  }
   return (
     <HeaderDiv open={isOpenSideBar}>
       <div className='force-space'></div>
@@ -23,10 +16,37 @@ const Header: React.FC = () => {
         <img src={Logo} alt='logo' />
         <p>MobCar</p>
       </div>
-      <button onClick={handleSideBar}>
+      <button
+        onClick={() => {
+          setIsOpenSideBar(!isOpenSideBar)
+        }}
+        className='sidebar-button'
+      >
         <img src={HeaderOpenMenu} alt='menu' />
       </button>
-      <SideBar open={isOpenSideBar}>oi</SideBar>
+      <SideBar open={isOpenSideBar}>
+        <LoginDiv>
+          <AdminPanelTitle>User Panel</AdminPanelTitle>
+          <form action=''>
+            <Input type='text' placeholder='E-mail' />
+            <Input type='pasword' placeholder='Password' />
+            {isNewUser && (
+              <>
+                <Input type='text' placeholder='Name' />
+                <Input type='text' placeholder='Cpf' />
+                <Input type='text' placeholder='Cellphone' />
+                <Input type='text' placeholder='Birthdate' />
+              </>
+            )}
+          </form>
+          <div className='login'>
+            <Button color='#fff' onClick={() => setIsNewUser(!isNewUser)}>
+              {isNewUser ? 'Old user?' : 'New user?'}
+            </Button>
+            <Button color='#000'>{isNewUser ? 'Register' : 'Login'}</Button>
+          </div>
+        </LoginDiv>
+      </SideBar>
     </HeaderDiv>
   )
 }

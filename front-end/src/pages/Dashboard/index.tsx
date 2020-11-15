@@ -2,7 +2,14 @@
 import React, { useState } from 'react'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
-import { Page, Container, CarContainer, ModalUser, ModalAdm } from './styles'
+import {
+  Page,
+  Container,
+  CarContainer,
+  ModalUser,
+  ModalAdm,
+  ModalOptions,
+} from './styles'
 import { Button } from '../../components/button'
 import { Input, SelectInput } from '../../components/input'
 import ThreeDots from '../../assets/ThreeDots.svg'
@@ -10,15 +17,13 @@ import DeleteLater from '../../assets/deletelater.png'
 import ModalCar from '../../assets/ModalCar.svg'
 import Modal from '../../components/modal'
 import { FiX } from 'react-icons/fi'
-import MiniModal from '../../components/minimodal'
 
 const Dashboard: React.FC = () => {
   const [isViewMoreModalVisible, setIsViewMoreModalVisible] = useState(false)
   const [isAdmModalVisible, setIsAdmModalVisible] = useState(false)
   const [isMiniModalVisible, setIsMiniModalVisible] = useState(false)
-  const [imageToDisplay, setImageToDisplay] = useState(
-    'https://exame.com/wp-content/uploads/2020/07/HB20-2020-AUTOM%C3%81TICO-DIVULGA%C3%87%C3%83O.jpg',
-  )
+  const [isEditModalVisible, setEditModalVisible] = useState(false)
+
   return (
     <>
       <Page>
@@ -36,7 +41,7 @@ const Dashboard: React.FC = () => {
                 Add new
               </Button>
               {isAdmModalVisible ? (
-                <Modal for='adm'>
+                <Modal to='adm'>
                   <ModalAdm>
                     <div className='modal-title'>
                       <div className='title-title'>
@@ -90,7 +95,7 @@ const Dashboard: React.FC = () => {
                     <span>View more</span>
                   </button>
                   {isViewMoreModalVisible ? (
-                    <Modal for='user'>
+                    <Modal to='user'>
                       <ModalUser>
                         <div className='modal-title'>
                           <div className='title-title'>
@@ -125,11 +130,32 @@ const Dashboard: React.FC = () => {
 
               <button
                 className='dots'
-                onClick={() => setIsMiniModalVisible(true)}
+                onClick={() => setIsMiniModalVisible(!isMiniModalVisible)}
               >
-                {isMiniModalVisible ? <MiniModal></MiniModal> : null}
                 <img src={ThreeDots} alt='3 pontos' />
               </button>
+              {isMiniModalVisible ? (
+                <ModalOptions>
+                  <li
+                    onClick={() => {
+                      setIsViewMoreModalVisible(true)
+                      setIsMiniModalVisible(false)
+                    }}
+                  >
+                    View
+                  </li>
+                  <li
+                    onClick={() => {
+                      setEditModalVisible(true)
+                      setIsMiniModalVisible(false)
+                    }}
+                  >
+                    Edit
+                  </li>
+
+                  <li>Delete</li>
+                </ModalOptions>
+              ) : null}
             </div>
             <div className='linebottom'></div>
           </CarContainer>

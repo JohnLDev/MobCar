@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 interface ModalProps {
-  for: 'user' | 'adm'
+  to: 'user' | 'adm'
 }
 
 export const ModalDiv = styled.div<ModalProps>`
@@ -18,7 +18,7 @@ export const ModalDiv = styled.div<ModalProps>`
   align-items: center;
   .container {
     background-color: #ffffff;
-    height: ${props => (props.for === 'user' ? '325px' : '450px')};
+    height: ${props => (props.to === 'user' ? '325px' : '450px')};
     max-width: 342px;
     width: 100%;
     border-radius: 24px;

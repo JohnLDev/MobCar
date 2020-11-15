@@ -195,3 +195,32 @@ export const ModalAdm = styled.div`
     }
   }
 `
+export const ModalOptions = styled.ul`
+  right: 45px;
+  position: absolute;
+  z-index: 3;
+  background: #ffffff;
+  list-style: none;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 77px;
+  height: 128px;
+
+  li {
+    cursor: pointer;
+    width: 100%;
+    height: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: #e5e5e5;
+      transition: background 1s;
+    }
+  }
+`

@@ -3,11 +3,11 @@
 import React from 'react'
 import { ModalDiv } from './styles'
 interface ModalProps {
-  for: 'user' | 'adm'
+  to: 'user' | 'adm'
 }
-const Modal: React.FC<ModalProps> = ({ children, for: For }) => {
+const Modal: React.FC<ModalProps> = ({ children, to: For }) => {
   return (
-    <ModalDiv for={For}>
+    <ModalDiv to={For}>
       <div className='container'>
         <button className='close'></button>
         <div className='content'>{children}</div>

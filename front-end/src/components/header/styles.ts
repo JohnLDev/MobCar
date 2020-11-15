@@ -34,7 +34,7 @@ export const HeaderDiv = styled.div<SideBarProps>`
       color: #00adee;
     }
   }
-  button {
+  .sidebar-button {
     height: 16.5px;
     width: 18.75px;
     background: 0;
@@ -49,10 +49,10 @@ export const HeaderDiv = styled.div<SideBarProps>`
   }
 `
 export const SideBar = styled.div<SideBarProps>`
-  max-width: 300px;
+  max-width: 320px;
   width: 100%;
   top: 60px;
-  right: ${props => (props.open ? '0' : '-300px')};
+  right: ${props => (props.open ? '0' : '-320px')};
   display: flex;
   position: fixed;
   height: 100%;
@@ -63,7 +63,34 @@ export const SideBar = styled.div<SideBarProps>`
   transition: right 0.4s;
 
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
+
   z-index: 2;
+  @media (min-width: 700px) {
+    max-width: 435px;
+    right: ${props => (props.open ? '0' : '-435px')};
+  }
+`
+export const LoginDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .login {
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+  }
+`
+
+export const AdminPanelTitle = styled.h3`
+  margin-top: 32px;
+  margin-bottom: 32px;
 `
