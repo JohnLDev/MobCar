@@ -9,6 +9,8 @@ import AdmModal from '../../components/admModal'
 import UserModal from '../../components/userModal'
 import api from '../../services/api'
 import Car from '../../dtos/CarDTO'
+import { useAuth } from '../../hooks/authContext'
+import { toast } from 'react-toastify'
 
 const Dashboard: React.FC = () => {
   const [isViewMoreModalVisible, setIsViewMoreModalVisible] = useState(false)
@@ -17,6 +19,7 @@ const Dashboard: React.FC = () => {
   const [isEditModalVisible, setEditModalVisible] = useState(false)
   const [miniModalVisible, setMiniModalVisible] = useState(0)
   const [cars, setCars] = useState<Car[]>([])
+  const { user } = useAuth()
 
   useEffect(() => {
     api.get('/car/index').then(response => {
@@ -29,6 +32,35 @@ const Dashboard: React.FC = () => {
     setMiniModalVisible(id)
   }
 
+  async function handleDeleteCar(id: number, model: string): Promise<void> {
+    console.log(user)
+    if (!user || (user && !user.is_Adm)) {
+      toast.error('You dont have permission to edit a car')
+      return
+    }
+    const confirm = window.confirm(`Are you sure you want to delete ${model}`)
+    if (!confirm) {
+      return
+    }
+    try {
+      await api.delete(`/car/delete/${id}`)
+    } catch (error) {
+      const {
+        data: { message },
+      } = error.response
+      toast.error(message)
+      return
+    }
+    toast.info('Car deleted')
+  }
+
+  function handleOpenEditModal(): void {
+    if (!user || (user && !user.is_Adm)) {
+      toast.error('You dont have permission to edit a car')
+      return
+    }
+    setIsMiniModalVisible(true)
+  }
   return (
     <>
       <Page
@@ -106,14 +138,21 @@ const Dashboard: React.FC = () => {
                     </li>
                     <li
                       onClick={() => {
-                        setEditModalVisible(true)
+                        handleOpenEditModal()
                         setIsMiniModalVisible(false)
                       }}
                     >
                       Edit
                     </li>
 
-                    <li>Delete</li>
+                    <li
+                      onClick={() => {
+                        handleDeleteCar(car.id, car.model)
+                        setIsMiniModalVisible(false)
+                      }}
+                    >
+                      Delete
+                    </li>
                   </ModalOptions>
                 ) : null}
                 {isEditModalVisible ? (

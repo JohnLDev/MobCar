@@ -19,6 +19,7 @@ interface IResponse {
   email: string
   cpf: string
   cellphone: number
+  is_Adm: boolean | undefined
   birthdate: Date
   rents: IRentResponse[] | []
   created_at: string
@@ -34,6 +35,7 @@ export default {
       cpf: user.cpf,
       cellphone: user.cellphone,
       birthdate: user.birthdate,
+      is_Adm: user.is_Adm,
       rents: user.rents
         ? user.rents.length > 0
           ? RentView.renderMany(user.rents)
