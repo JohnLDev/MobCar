@@ -179,4 +179,19 @@ export const ModalAdm = styled.div`
       }
     }
   }
+  .modal-title {
+    margin-bottom: 16px;
+  }
+  form {
+    width: 100%;
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      z-index: 10;
+      .frist {
+        margin-right: 8px;
+      }
+    }
+  }
 `
