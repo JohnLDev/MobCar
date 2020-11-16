@@ -92,8 +92,9 @@ Teste realizado em aproximadamente 4 dias
 
 OBS:Para testes por padrão é criada uma conta admin com as credenciais  email: __admin@admin.com__ e password: __admin__
 
+OBS2: Dentro da pasta back-end existe um readme com a explicação de todas as rotas
 
-OBS2: Dentra da pasta back-end existe um readme com a exemplificação de todas as rotas
+
 ---
 ## 💻 Executando o MobCar
 
