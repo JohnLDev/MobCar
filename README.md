@@ -81,7 +81,12 @@ Algumas alterações foram feitas no projeto original como por exemplo a adiçã
 
 ---
 
+## 👁‍🗨 Insomnia
 
+
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=MobCar&uri=https://raw.githubusercontent.com/JohnLDev/MobCar/master/back-end/Insomnia_2020-11-16.json?token=AQVFH2YHBLBM6N3AAKYUZAC7PTKWK)
+
+---
 ## 💻 Executando o MobCar
 
 <br>
@@ -102,26 +107,27 @@ Algumas alterações foram feitas no projeto original como por exemplo a adiçã
     ```
     - O retorno será o id do container criado e isso indica que tudo está funcionando 
     - Agora será preciso acessar o banco de dados através de um software adequado (Beekeeper studio,DBeaver) e criar um banco de dados que sera usado no .env
+    - Talvez seja necessário ativar a extensão uuid-ossp ao branco de dados
   
 
 ### ♊ Clonando o Repositório
 
 ```bash
 
-$ git clone https://github.com/johnldev/GoFinances
+$ git clone https://github.com/johnldev/MobCar
 
 # entre na pasta do projeto
 
-$ cd GoFinances
+$ cd MobCar
 
 ```
-### 💻 Rodando o GoFinances web
+### 💻 Rodando o MobCar web
 
 Entre na pasta
 
 ```bash
 
-$ cd web
+$ cd front-end
 
 ```
 Instale as dependências
@@ -183,6 +189,7 @@ $ yarn typeorm migration:run
 $ npm run typeorm migration:run
 
 ```
+- obs : talvez sejá necessário instalar a extensão uuid-ossp no banco de dados
 
 Rode o servidor
 
@@ -197,11 +204,13 @@ $ npm run dev:server
 ```
 
 
-### 📱 Rodando o GoFinances mobile 
+### 📱 Rodando o MobCar mobile 
 
 <br>
 <h4 align="center"> 
 	🚧  Em Breve...  🚧
+
+  🚧  Porém, enquanto isso... o MobCar é todo Responsivo!!  🚧
 </h4>
 <br>
 
@@ -218,7 +227,11 @@ As ferramentas usadas no desenvolvimento do projeto.
 - Express
 - PostgreSQL
 - TypeORM
-- Multer
+- JsonWebToken
+- Bcryptjs
+- Tsyringe
+- Uuidv4
+- Testes Automatizados
 
 
 #### Web
@@ -227,6 +240,8 @@ As ferramentas usadas no desenvolvimento do projeto.
 - React Router Dom
 - React Icons
 - Axios
+- Styled Components
+- Yup
 
 #### Mobile:
 
