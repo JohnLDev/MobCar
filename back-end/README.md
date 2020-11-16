@@ -124,9 +124,6 @@ response:
   }
 ]
 ```
-Obs:
-1. O parametro name da query foi feito com includes para facilitar a busca por nomes.
-2. O usuário só pode listar seus próprios Navers.
 
 ### Show
 __Método:GET__
