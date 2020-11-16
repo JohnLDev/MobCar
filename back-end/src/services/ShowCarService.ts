@@ -19,7 +19,7 @@ export default class ShowCarService {
 
     const car = await this.carRepository.findById(correctId)
     if (!car) {
-      throw new AppError('Carro não cadastrado', 404)
+      throw new AppError('Car not found', 404)
     }
     return car
   }

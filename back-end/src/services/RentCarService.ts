@@ -33,64 +33,64 @@ export default class RentCarService {
     }
 
     const schema = yup.object().shape({
-      id: yup.string().required('Informe qual carro deseja alugar'),
-      user_Id: yup.string().required('Realize login para alugar um carro'),
+      id: yup.string().required('inform what car you want to rent'),
+      user_Id: yup.string().required('Log in to rent a car'),
       date_From: yup
         .string()
-        .length(10)
-        .required('Informe a data que pegara o carro'),
+        .length(10, 'inform a valid date')
+        .required('inform the date that you want to get the car'),
       date_Until: yup
         .string()
-        .length(10)
-        .required('Informe a data que irá entregar o carro'),
+        .length(10, 'inform a valid date')
+        .required('inform the date that you will release the car'),
     })
     await schema.validate(data, { abortEarly: false })
 
     if (user_Id && !validate(user_Id)) {
-      throw new AppError('Realize login para alugar um carro')
+      throw new AppError('Log in to rent a car')
     }
 
     const car = await this.carRepository.findById(parseInt(id))
     if (!car) {
-      throw new AppError('Carro não cadastrado', 404)
+      throw new AppError('Car not found', 404)
     }
     const { diffDays, DateF, DateU } = DiffDays({ date_From, date_Until })
 
     if (isBefore(DateU, DateF)) {
-      throw new AppError('Data inválida')
+      throw new AppError('Invalid date')
     }
     if (
       isBefore(DateF, startOfHour(setHours(Date.now(), 0.0))) ||
       isBefore(DateU, startOfHour(setHours(Date.now(), 0.0))) ||
       isBefore(DateU, DateF)
     ) {
-      throw new AppError('Data inválida')
+      throw new AppError('Invalid date')
     }
 
     car.rents.forEach(rent => {
       if (isEqual(DateF, rent.date_From) || isEqual(DateU, rent.date_Until)) {
-        throw new AppError('Carro está alugado durante esse periodo')
+        throw new AppError('Car is already rented at this time')
       }
       if (isBefore(DateF, rent.date_From) && isAfter(DateU, rent.date_Until)) {
-        throw new AppError('Carro está alugado durante esse periodo')
+        throw new AppError('Car is already rented at this time')
       }
       if (
         isBefore(DateF, rent.date_From) &&
         isBefore(DateU, rent.date_Until) &&
         isAfter(DateU, rent.date_From)
       ) {
-        throw new AppError('Carro está alugado durante esse periodo')
+        throw new AppError('Car is already rented at this time')
       }
 
       if (isAfter(DateF, rent.date_From) && isBefore(DateU, rent.date_Until)) {
-        throw new AppError('Carro está alugado durante esse periodo')
+        throw new AppError('Car is already rented at this time')
       }
       if (
         isAfter(DateF, rent.date_From) &&
         isBefore(DateF, rent.date_Until) &&
         isAfter(DateU, rent.date_Until)
       ) {
-        throw new AppError('Carro está alugado durante esse periodo')
+        throw new AppError('Car is already rented at this time')
       }
     })
     const categoryPrice = GetRentPrice(car.category)

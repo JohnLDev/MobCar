@@ -35,12 +35,15 @@ export default class CreateUserService {
       is_Adm,
     }
     const schema = yup.object().shape({
-      name: yup.string().required('Insira seu nome'),
-      cpf: yup.string().required('Insira seu cpf'),
-      email: yup.string().email('insira um email').required('insira um email'),
-      password: yup.string().required('Insira sua senha'),
-      cellphone: yup.number().required('Insira seu numero de contato'),
-      birthdate: yup.string().required('Insira sua data de nascimento'),
+      name: yup.string().required('inform your name'),
+      cpf: yup.string().required('inform your cpf'),
+      email: yup
+        .string()
+        .email('inform a valid email')
+        .required('inform an email'),
+      password: yup.string().required('inform your password'),
+      cellphone: yup.number().required('inform your phone number'),
+      birthdate: yup.string().required('inform your birthdate'),
       is_Adm: yup.boolean(),
     })
     await schema.validate(data)
@@ -50,7 +53,7 @@ export default class CreateUserService {
     )
 
     if (emailAlreadyRegistered) {
-      throw new AppError('Email já registrado')
+      throw new AppError('email already registered')
     }
     data.password = await hash(password, 8)
     const user = await this.userRepository.create(data)

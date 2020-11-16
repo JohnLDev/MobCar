@@ -38,25 +38,25 @@ export default class UpdateCarService {
       url,
     }
     const schema = yup.object().shape({
-      id: yup.string().required('Insira o identificador do carro'),
-      user_Id: yup.string().required('Insira o identificador do usuario'),
+      id: yup.string().required('inform what car you want to update'),
+      user_Id: yup.string().required('inform the user identifier'),
       board: yup.string(),
       color: yup.string(),
       model: yup.string(),
       observations: yup.string(),
-      url: yup.string().url(),
+      url: yup.string().url('please inform a valid url'),
     })
     await schema.validate(data)
 
     const car = await this.carRepository.findById(parseInt(id))
     if (!car) {
-      throw new AppError('Carro não cadastrado', 404)
+      throw new AppError('Car not found', 404)
     }
     if (board) {
       const boardAlreadyExists = await this.carRepository.findByBoard(board)
 
       if (boardAlreadyExists) {
-        throw new AppError('Placa já registrada')
+        throw new AppError('license plate is already registered')
       }
       car.board = board
     }

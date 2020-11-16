@@ -28,7 +28,7 @@ export default class IndexCarService {
         category !== 'padrao' &&
         category !== 'executivo'
       ) {
-        throw new AppError('Categoria invalida (Padrao, Executivo, Vip)')
+        throw new AppError('Invalid category => (Padrao, Executivo, Vip)')
       }
       this.Cars = this.Cars.filter(car => car.category === category)
     }
@@ -42,7 +42,7 @@ export default class IndexCarService {
 
     if (pag) {
       if (pag !== 'asc' && pag !== 'desc') {
-        throw new AppError('Filtro Desconhecido')
+        throw new AppError('unknown filter')
       }
       switch (pag) {
         case 'asc':

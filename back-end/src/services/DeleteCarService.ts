@@ -21,12 +21,12 @@ export default class DeleteCarService {
   public async execute({ id, user_Id }: IRequest): Promise<void> {
     const user = await this.userRepository.findById(user_Id)
     if (!user || (user && !user.is_Adm)) {
-      throw new AppError('você não tem permissão para deletar um carro')
+      throw new AppError('you dont have permission to delete a car')
     }
     const carExist = await this.carRepository.findOne(parseInt(id))
 
     if (!carExist) {
-      throw new AppError('Carro não está cadastrado')
+      throw new AppError('Car not found', 404)
     }
     await this.carRepository.delete(parseInt(id))
   }

@@ -26,7 +26,7 @@ export default class AuthenticateUserService {
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     if (!email || !password) {
-      throw new AppError('Por favor informe email e senha')
+      throw new AppError('please inform email and password')
     }
     const schema = yup.string().email().required()
 
@@ -35,13 +35,13 @@ export default class AuthenticateUserService {
     email = email.toLocaleLowerCase()
     const user = await this.userRepository.findByEmail(email)
     if (!user) {
-      throw new AppError('combinação incorreta de email/senha', 401)
+      throw new AppError('wrong email/password combination', 401)
     }
 
     const passwordMatched = await compare(password, user.password)
 
     if (!passwordMatched) {
-      throw new AppError('combinação incorreta de email/senha', 401)
+      throw new AppError('wrong email/password combination', 401)
     }
 
     const { secret, expiresIn } = authConfig.jwt

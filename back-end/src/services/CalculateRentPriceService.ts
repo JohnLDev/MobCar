@@ -30,21 +30,21 @@ export default class CalculateRentPriceService {
       date_Until,
     }
     const schema = yup.object().shape({
-      id: yup.string().required('Informe o idenficador do carro'),
+      id: yup.string().required('inform the car identifier'),
       date_From: yup
         .string()
-        .length(10)
-        .required('Informe a data que pegara o carro'),
+        .length(10, 'inform a valid date')
+        .required('inform the date that you want to get the car'),
       date_Until: yup
         .string()
-        .length(10)
-        .required('Informe a data que irá entregar o carro'),
+        .length(10, 'inform a valid date')
+        .required('inform the date that you will release the car'),
     })
 
     await schema.validate(data, { abortEarly: false })
     const car = await this.carRepository.findById(parseInt(id))
     if (!car) {
-      throw new AppError('Carro não cadastrado', 404)
+      throw new AppError('Car not found', 404)
     }
 
     this.price = GetRentPrice(car.category)

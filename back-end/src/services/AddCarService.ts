@@ -34,13 +34,13 @@ export default class AddCarService {
       user_Id,
     }
     const schema = yup.object().shape({
-      model: yup.string().required('Insira o modelo do carro'),
-      board: yup.string().required('Insira a placa do carro'),
-      color: yup.string().required('Insira a cor do carro'),
-      category: yup.string().required('Insira categoria do carro'),
-      observations: yup.string().required('Insira as observations do carro'),
-      url: yup.string().url('Insira uma url válida'),
-      user_Id: yup.string().required('Insira o id id do usuario'),
+      model: yup.string().required('inform the car model'),
+      board: yup.string().required('inform the license plate'),
+      color: yup.string().required('infrom the color'),
+      category: yup.string().required('inform car category'),
+      observations: yup.string().required('inform some observation'),
+      url: yup.string().url('inform an valid url'),
+      user_Id: yup.string().required('insert user id'),
     })
     await schema.validate(data, { abortEarly: false })
     model = model.toLocaleLowerCase()
@@ -50,26 +50,21 @@ export default class AddCarService {
       category !== 'executivo' &&
       category !== 'vip'
     ) {
-      throw new AppError('Categoria invalida (Padrao, Executivo, Vip)')
+      throw new AppError('Invalid category => (Padrao, Executivo, Vip)')
     }
 
     const user = await this.userRepository.findById(user_Id)
     if (!user) {
-      throw new AppError(
-        'Você deve realizar login antes de adicionar um carro',
-        400,
-      )
+      throw new AppError('you must be logged in to add a car', 400)
     }
     if (!user.is_Adm) {
-      throw new AppError(
-        'Você precisa ser um administrador para adicionar carros ao sistema',
-      )
+      throw new AppError('you must be an admin to add a car')
     }
 
     const boardAlreadyExists = await this.carRepository.findByBoard(board)
 
     if (boardAlreadyExists) {
-      throw new AppError('Placa já registrada')
+      throw new AppError('license plate already registered')
     }
     const AlreadyRegistered = await this.carRepository.findByModel(model)
     if (AlreadyRegistered) {

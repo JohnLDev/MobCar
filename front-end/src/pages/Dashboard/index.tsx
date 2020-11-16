@@ -41,7 +41,7 @@ const Dashboard: React.FC = () => {
   async function handleDeleteCar(id: number, model: string): Promise<void> {
     console.log(user)
     if (!user || (user && !user.is_Adm)) {
-      toast.error('You dont have permission to edit a car')
+      toast.error('You dont have permission to remove a car')
       return
     }
     const confirm = window.confirm(`Are you sure you want to delete ${model}`)
