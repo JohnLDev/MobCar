@@ -66,6 +66,7 @@ export default class UpdateCarService {
     }
 
     if (model) {
+      model =  car.model = model.toLocaleLowerCase()
       const AlreadyRegistered = await this.carRepository.findByModel(model)
       if (AlreadyRegistered) {
         car.category = AlreadyRegistered.category
