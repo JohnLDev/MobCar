@@ -82,7 +82,7 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
     const data = { model, board, color, observations, category, url }
     const schema = yup.object().shape({
       model: yup.string().required('inform the car model'),
-      board: yup.string().required('inform the car board'),
+      board: yup.string().required('inform the car license plate'),
       color: yup.string().required('inform the car color'),
       observations: yup
         .string()
@@ -140,7 +140,7 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
                 />
                 <Input
                   type='text'
-                  placeholder='Board'
+                  placeholder='License plate'
                   value={board}
                   onChange={({ target: { value } }) => {
                     setBoard(value)

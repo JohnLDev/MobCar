@@ -112,7 +112,7 @@ const UserModal: React.FC<ModalProps> = ({ OnClose, car }) => {
             </div>
             <img className='foto' src={car.url} alt='carro' />
             <div className='infos'>
-              <span>Board:{car.board}</span>
+              <span>License plate:{car.board}</span>
               <span>Color:{car.color}</span>
               <span>
                 Category:
