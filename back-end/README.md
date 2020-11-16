@@ -19,7 +19,8 @@ body da request:
   "email": "john@4lenon.com",
   "password": "johnlenon",
   "cellphone": 53984543612,
-  "birthdate": "12/12/1900"
+  "birthdate": "12/12/1900",
+  "is_Adm": false,
 
 }
 ```
@@ -34,6 +35,7 @@ response:
   "cellphone": 53984543612,
   "birthdate": "12/12/1900",
   "rents": [],
+  "is_Adm": false,
   "created_at": "14/11/2020",
   "updated_at": "14/11/2020"
 
@@ -42,6 +44,7 @@ response:
 ```
 Obs:
 1. senha foi ocultada da resposta como forma de aumentar a segurança do usuário.
+2. parametro is_Adm não precisa ser passado, apenas para criar usuarios administradores ele deve ser passado como true
 
 ### Rota Login
 __Método:POST__
