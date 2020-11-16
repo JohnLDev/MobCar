@@ -91,6 +91,7 @@ Teste realizado em aproximadamente 4 dias
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=MobCar&uri=https://raw.githubusercontent.com/JohnLDev/MobCar/master/back-end/Insomnia_2020-11-16.json?token=AQVFH2YHBLBM6N3AAKYUZAC7PTKWK)
 
 OBS:Para testes por padrão é criada uma conta admin com as credenciais  email: __admin@admin.com__ e password: __admin__
+OBS2: Dentra da pasta back-end existe um readme com a exemplificação de todas as rotas
 ---
 ## 💻 Executando o MobCar
 
