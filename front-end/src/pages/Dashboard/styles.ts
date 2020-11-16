@@ -147,7 +147,7 @@ export const CarContainer = styled.div`
 export const ModalOptions = styled.ul`
   right: 45px;
   position: absolute;
-  z-index: 3;
+  z-index: 18;
   background: #ffffff;
   list-style: none;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
