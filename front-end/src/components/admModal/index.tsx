@@ -53,7 +53,7 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
       board: yup.string(),
       color: yup.string(),
       observations: yup.string().max(100),
-      url: yup.string(),
+      url:  yup.string().url('inform a valid URL'),
     })
 
     try {
@@ -89,7 +89,7 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
         .max(60)
         .required('inform some observation to car'),
       category: yup.string().required('inform the car category'),
-      url: yup.string().required('inform the car image URL'),
+      url:  yup.string().url('inform a valid URL').required('inform the car image URL'),
     })
 
     try {
