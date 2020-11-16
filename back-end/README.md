@@ -1,7 +1,7 @@
 # Back-End
 
 ## ER Dirgram
- <img alt="MobCar" title="MobCar" src="../README/ERDIAGRAM.png" width="1000px">
+ <img alt="MobCar" title="MobCar" src="../README/ERDIAGRAM.png" max-width="1000px">
 
 ## Authentication
 
