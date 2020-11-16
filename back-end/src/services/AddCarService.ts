@@ -43,7 +43,7 @@ export default class AddCarService {
       user_Id: yup.string().required('insert user id'),
     })
     await schema.validate(data, { abortEarly: false })
-    model = model.toLocaleLowerCase()
+    data.model = data.model.toLocaleLowerCase()
     category = category.toLocaleLowerCase() as typeof category
     if (
       category !== 'padrao' &&
