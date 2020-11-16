@@ -66,7 +66,7 @@ export default class AddCarService {
     if (boardAlreadyExists) {
       throw new AppError('license plate already registered')
     }
-    const AlreadyRegistered = await this.carRepository.findByModel(model)
+    const AlreadyRegistered = await this.carRepository.findByModel(data.model)
     if (AlreadyRegistered) {
       data.category = AlreadyRegistered.category
     }
