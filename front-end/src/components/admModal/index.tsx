@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-use-before-define
-import React, { useState, useEffect, FormEvent } from 'react'
+import React, { useState, FormEvent, useEffect } from 'react'
 import { FiX } from 'react-icons/fi'
 import { ModalDiv, ModalAdm } from './styles'
 import ModalCar from '../../assets/ModalCar.svg'
@@ -18,7 +18,7 @@ interface ModalProps {
   car?: Car
 }
 const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
-  const { push } = useHistory()
+  const { go } = useHistory()
   const [url, setUrl] = useState('')
   const [model, setModel] = useState('')
   const [board, setBoard] = useState('')
@@ -28,14 +28,9 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
 
   useEffect(() => {
     if (car && For === 'Edit') {
-      setBoard(car.board)
-      setModel(car.model)
-      setColor(car.color)
-      setObservations(car.observations)
       setUrl(car.url)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [For, car])
   function handleClose(): void {
     setBoard('')
     setModel('')
@@ -46,25 +41,44 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
     OnClose()
   }
 
-  async function handleSubmitNewCar(event: FormEvent): Promise<void> {
-    switch (category) {
-      case 'Category':
-        toast.error('inform the car category')
+  async function handleSubmitEditCar(
+    event: FormEvent,
+    id: number,
+  ): Promise<void> {
+    event.preventDefault()
+
+    const data = { model, board, color, observations, url }
+    const schema = yup.object().shape({
+      model: yup.string(),
+      board: yup.string(),
+      color: yup.string(),
+      observations: yup.string().max(100),
+      url: yup.string(),
+    })
+
+    try {
+      await schema.validate(data)
+      await api.post(`/car/update/${id}`, data)
+    } catch (error) {
+      if (error instanceof yup.ValidationError) {
+        error.errors.map(error => toast.error(error, {}))
         return
-      case 'Default':
-        console.log('oi')
-        setCategory('padrao')
-        break
-      case 'Executive':
-        setCategory('executivo')
-        break
-      case 'Vip':
-        setCategory('vip')
-        break
+      }
+
+      const {
+        data: { message },
+      } = error.response
+      toast.error(message)
+      return
     }
-    if (category === 'Default') {
-      setCategory('padrao')
-    }
+    toast.success('Car updated successfully')
+    handleClose()
+    go(0)
+  }
+
+  async function handleSubmitNewCar(event: FormEvent): Promise<void> {
+    event.preventDefault()
+
     const data = { model, board, color, observations, category, url }
     const schema = yup.object().shape({
       model: yup.string().required('inform the car model'),
@@ -72,13 +86,12 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
       color: yup.string().required('inform the car color'),
       observations: yup
         .string()
-        .max(100)
+        .max(60)
         .required('inform some observation to car'),
       category: yup.string().required('inform the car category'),
       url: yup.string().required('inform the car image URL'),
     })
-    event.preventDefault()
-    console.log(data.category)
+
     try {
       await schema.validate(data)
       await api.post('/car/addcar', data)
@@ -96,7 +109,7 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
     }
     toast.success('Car added successfully')
     handleClose()
-    push('/')
+    go(0)
   }
 
   return (
@@ -116,7 +129,7 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
                 </button>
               </div>
               <h3 className='modal-title'>Welcome to family</h3>
-              <form onSubmit={handleSubmitNewCar}>
+              <form id='addnew' onSubmit={handleSubmitNewCar}>
                 <Input
                   type='text'
                   placeholder='Model'
@@ -158,16 +171,17 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
                   }}
                 />
                 <SelectInput
+                  form='addnew'
                   name='select'
                   id='select'
                   onChange={({ target: { value } }) => {
                     setCategory(value)
                   }}
                 >
-                  <option>Category</option>
-                  <option>Default</option>
-                  <option>Executive</option>
-                  <option>Vip</option>
+                  <option value='Category'>Category</option>
+                  <option value='padrao'>Default</option>
+                  <option value='executivo'>Executive</option>
+                  <option value='vip'>Vip</option>
                 </SelectInput>
                 <div className='buttons'>
                   <Button
@@ -194,7 +208,13 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
                 </button>
               </div>
 
-              <form action=''>
+              <form
+                onSubmit={(event: FormEvent) => {
+                  if (car) {
+                    handleSubmitEditCar(event, car.id)
+                  }
+                }}
+              >
                 <div className='car-image-display-div'>
                   <img
                     src={url}
@@ -204,7 +224,7 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
                 </div>
                 <Input
                   type='text'
-                  placeholder='Model'
+                  placeholder={car?.model}
                   value={model}
                   onChange={({ target: { value } }) => {
                     setModel(value)
@@ -212,7 +232,7 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
                 />
                 <Input
                   type='text'
-                  placeholder='Board'
+                  placeholder={car?.board}
                   value={board}
                   onChange={({ target: { value } }) => {
                     setBoard(value)
@@ -220,7 +240,7 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
                 />
                 <Input
                   type='text'
-                  placeholder='Color'
+                  placeholder={car?.color}
                   value={color}
                   onChange={({ target: { value } }) => {
                     setColor(value)
@@ -228,7 +248,7 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
                 />
                 <Input
                   type='text'
-                  placeholder='Observations'
+                  placeholder={car?.observations}
                   value={observations}
                   onChange={({ target: { value } }) => {
                     setObservations(value)
@@ -236,7 +256,7 @@ const ModalTest: React.FC<ModalProps> = ({ OnClose, to: For, car }) => {
                 />
                 <Input
                   type='text'
-                  placeholder='Url'
+                  placeholder={car?.url}
                   value={url}
                   onChange={({ target: { value } }) => {
                     setUrl(value)
