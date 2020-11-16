@@ -3,7 +3,7 @@
  MobCar <img alt="MobCar" title="MobCar" src="./front-end/src/assets/Logo.svg" />
 </h1>
 
-<p align="center">MobCar foi desenvolvido utilizando a metodologia mobile frist e como teste de admissão da empresa Moblize</p>
+<p align="center">MobCar foi desenvolvido como teste de admissão da empresa Moblize</p>
 
 
 <p align="center">
@@ -21,6 +21,10 @@
 Esta aplicação gerencia um negócio de aluguel de carros, automatizando todos os processos desde cadastros de carros até calculo de valores e aluguéis.
 
 Algumas alterações foram feitas no projeto original como por exemplo a adição do campo de senha ao cadastrar um usuário para implementar a função de cadastro na aplicação, todas as mudanças foram feitas com o intuito de tornar possível a integração do front-end com o back-end fazendo assim uma aplicação completa (FullStack)
+
+Desenvolvido utilizando a metodologia mobile first
+
+Teste realizado em aproximadamente 4 dias
 
 ---
 
