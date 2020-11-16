@@ -3,7 +3,7 @@
  MobCar <img alt="MobCar" title="MobCar" src="./front-end/src/assets/Logo.svg" />
 </h1>
 
-<p align="center">MobCar foi desenvolvido como teste de admissão da empresa Moblize</p>
+<p align="center">MobCar foi desenvolvido utilizando a metodologia mobile frist e como teste de admissão da empresa Moblize</p>
 
 
 <p align="center">
