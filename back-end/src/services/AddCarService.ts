@@ -44,11 +44,11 @@ export default class AddCarService {
     })
     await schema.validate(data, { abortEarly: false })
     data.model = data.model.toLocaleLowerCase()
-    category = category.toLocaleLowerCase() as typeof category
+    data.category = data.category.toLocaleLowerCase() as typeof category
     if (
-      category !== 'padrao' &&
-      category !== 'executivo' &&
-      category !== 'vip'
+      data.category !== 'padrao' &&
+      data.category !== 'executivo' &&
+      data.category !== 'vip'
     ) {
       throw new AppError('Invalid category => (Padrao, Executivo, Vip)')
     }
