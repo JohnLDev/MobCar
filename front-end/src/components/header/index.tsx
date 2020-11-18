@@ -83,12 +83,12 @@ const Header: React.FC = () => {
           .length(14, 'inform a valid cpf')
           .required('inform your cpf'),
       })
-      const [d,m,y] = birthdate.split('/')
-      if(parseInt(m)> 12 || parseInt(d) >31) {
+      const [d, m, y] = birthdate.split('/')
+      if (parseInt(m) > 12 || parseInt(d) > 31) {
         toast.error('invalid date format(dd/mm/yyyy)')
         return
       }
-      data.birthdate = m+'/'+d+'/'+y
+      data.birthdate = d + '/' + m + '/' + y
 
       try {
         await schema.validate(data)
