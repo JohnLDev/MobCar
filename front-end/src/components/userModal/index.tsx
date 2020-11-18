@@ -39,7 +39,23 @@ const UserModal: React.FC<ModalProps> = ({ OnClose, car }) => {
         .length(10, 'inform a valid date format')
         .required('inform a date'),
     })
-
+    const [d1, m1, y1] = date_From.split('/')
+    const [d2, m2, y2] = date_Until.split('/')
+    if (
+      d1.length !== 2 ||
+      d2.length !== 2 ||
+      m1.length !== 2 ||
+      m2.length !== 2 ||
+      y1.length !== 4 ||
+      y2.length !== 4 ||
+      parseInt(m1) > 12 ||
+      parseInt(m2) > 12 ||
+      parseInt(d1) > 31 ||
+      parseInt(d2) > 31
+    ) {
+      toast.error('invalid date format(dd/mm/yyyy)')
+      return
+    }
     try {
       await schema.validate(data)
       const response = await api.post<Rent>(`/car/rentprice/${id}`, data)
