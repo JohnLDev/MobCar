@@ -27,7 +27,7 @@ describe('RentCarService', () => {
       email: 'admin@admin.com',
       password: 'admin',
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
 
@@ -69,7 +69,7 @@ describe('RentCarService', () => {
       email: 'admin@admin.com',
       password: 'admin',
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
 
@@ -113,7 +113,7 @@ describe('RentCarService', () => {
       email: 'admin@admin.com',
       password: 'admin',
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
 
@@ -157,7 +157,7 @@ describe('RentCarService', () => {
       email: 'admin@admin.com',
       password: 'admin',
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
 
@@ -201,7 +201,7 @@ describe('RentCarService', () => {
       email: 'admin@admin.com',
       password: 'admin',
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
 
@@ -245,7 +245,7 @@ describe('RentCarService', () => {
       email: 'admin@admin.com',
       password: 'admin',
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
 
@@ -289,7 +289,7 @@ describe('RentCarService', () => {
       email: 'admin@admin.com',
       password: 'admin',
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
 
@@ -333,7 +333,7 @@ describe('RentCarService', () => {
       email: 'admin@admin.com',
       password: 'admin',
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
 
@@ -377,7 +377,7 @@ describe('RentCarService', () => {
       email: 'admin@admin.com',
       password: 'admin',
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
 
@@ -417,7 +417,7 @@ describe('RentCarService', () => {
       email: 'admin@admin.com',
       password: 'admin',
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
 

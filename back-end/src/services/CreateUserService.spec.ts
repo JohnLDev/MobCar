@@ -13,7 +13,7 @@ describe('CreateUserService', () => {
       email: 'admin@admin.com',
       password: await hash('admin', 8),
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: false,
     })
 
@@ -28,7 +28,7 @@ describe('CreateUserService', () => {
       email: 'admin@admin.com',
       password: 'admin',
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
     })
     await expect(
       createUserService.execute({
@@ -37,7 +37,23 @@ describe('CreateUserService', () => {
         email: 'admin@admin.com',
         password: 'admin',
         cellphone: 53984523422,
-        birthdate: new Date(2020, 11, 11),
+        birthdate: '11/12/2020',
+      }),
+    ).rejects.toBeInstanceOf(AppError)
+  })
+
+  it('should be not able to create a user with an invalid date', async () => {
+    const fakeUserRepository = new FakeUserRepository()
+    const createUserService = new CreateUserService(fakeUserRepository)
+
+    await expect(
+      createUserService.execute({
+        name: 'admin',
+        cpf: '000.138.060-50',
+        email: 'admin@admin.com',
+        password: 'admin',
+        cellphone: 53984523422,
+        birthdate: '34/12/2020',
       }),
     ).rejects.toBeInstanceOf(AppError)
   })

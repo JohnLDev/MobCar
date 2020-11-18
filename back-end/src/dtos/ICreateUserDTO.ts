@@ -4,6 +4,6 @@ export default interface ICreateUserDTO {
   email: string
   password: string
   cellphone: number
-  birthdate: Date
+  birthdate: Date | string
   is_Adm?: boolean
 }

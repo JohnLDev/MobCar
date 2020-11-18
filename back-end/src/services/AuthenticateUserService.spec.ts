@@ -18,7 +18,7 @@ describe('AuthenticateUserService', () => {
       email: 'admin@admin.com',
       password: '123',
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: false,
     })
 
@@ -61,7 +61,7 @@ describe('AuthenticateUserService', () => {
       email: 'admin@admin.com',
       password: await hash('admin', 8),
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
     })
 
     await expect(

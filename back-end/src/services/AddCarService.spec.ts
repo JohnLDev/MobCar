@@ -22,7 +22,7 @@ describe('AddCarService', () => {
       email: 'admin@admin.com',
       password: await hash('admin', 8),
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
 
@@ -52,7 +52,7 @@ describe('AddCarService', () => {
       email: 'admin@admin.com',
       password: await hash('admin', 8),
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
 
@@ -84,7 +84,7 @@ describe('AddCarService', () => {
       email: 'admin@admin.com',
       password: await hash('admin', 8),
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: false,
     })
 
@@ -137,7 +137,7 @@ describe('AddCarService', () => {
       email: 'admin@admin.com',
       password: await hash('admin', 8),
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
     await addCarService.execute({
@@ -177,7 +177,7 @@ describe('AddCarService', () => {
       email: 'admin@admin.com',
       password: await hash('admin', 8),
       cellphone: 53984523422,
-      birthdate: new Date(2020, 11, 11),
+      birthdate: '11/12/2020',
       is_Adm: true,
     })
     await addCarService.execute({

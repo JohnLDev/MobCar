@@ -20,7 +20,7 @@ interface IResponse {
   cpf: string
   cellphone: number
   is_Adm: boolean | undefined
-  birthdate: Date
+  birthdate: string
   rents: IRentResponse[] | []
   created_at: string
   updated_at: string
@@ -34,7 +34,7 @@ export default {
       email: user.email,
       cpf: user.cpf,
       cellphone: user.cellphone,
-      birthdate: user.birthdate,
+      birthdate: FormatDate(user.birthdate),
       is_Adm: user.is_Adm,
       rents: user.rents
         ? user.rents.length > 0

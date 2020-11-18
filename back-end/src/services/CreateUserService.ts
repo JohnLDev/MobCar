@@ -56,6 +56,21 @@ export default class CreateUserService {
       throw new AppError('email already registered')
     }
     data.password = await hash(password, 8)
+
+    const [d, m, y] = String(birthdate).split('/')
+    if (
+      d.length !== 2 ||
+      m.length !== 2 ||
+      y.length !== 4 ||
+      parseInt(d) > 31 ||
+      parseInt(d) < 1 ||
+      parseInt(m) > 12 ||
+      parseInt(m) < 1
+    ) {
+      throw new AppError('birthdate format is invalid please use (dd/mm/yyyy)')
+    }
+
+    data.birthdate = new Date(parseInt(y), parseInt(m) - 1, parseInt(d))
     const user = await this.userRepository.create(data)
 
     return user
