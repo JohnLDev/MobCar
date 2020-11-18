@@ -54,6 +54,22 @@ export default class RentCarService {
     if (!car) {
       throw new AppError('Car not found', 404)
     }
+    const [d1, m1, y1] = date_From.split('/')
+    const [d2, m2, y2] = date_Until.split('/')
+    if (
+      d1.length !== 2 ||
+      d2.length !== 2 ||
+      m1.length !== 2 ||
+      m2.length !== 2 ||
+      y1.length !== 4 ||
+      y2.length !== 4 ||
+      parseInt(m1) > 12 ||
+      parseInt(m2) > 12 ||
+      parseInt(d1) > 31 ||
+      parseInt(d2) > 31
+    ) {
+      throw new AppError('Invalid date format(dd/mm/yyyy)')
+    }
     const { diffDays, DateF, DateU } = DiffDays({ date_From, date_Until })
 
     if (isBefore(DateU, DateF)) {

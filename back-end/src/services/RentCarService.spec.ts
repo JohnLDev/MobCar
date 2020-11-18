@@ -400,6 +400,51 @@ describe('RentCarService', () => {
       }),
     ).rejects.toBeInstanceOf(AppError)
   })
+
+  it('should be not able to rent a car with an invalid date', async () => {
+    const fakeUserRepository = new FakeUserRepository()
+    const fakeCarRepository = new FakeCarRepository()
+    const fakeRentRepository = new FakeRentRepository()
+    const addCarService = new AddCarService(
+      fakeCarRepository,
+      fakeUserRepository,
+    )
+    const rentCarService = new RentCarService(
+      fakeCarRepository,
+      fakeRentRepository,
+    )
+
+    const createUserService = new CreateUserService(fakeUserRepository)
+    const user = await createUserService.execute({
+      name: 'admin',
+      cpf: '000.138.060-50',
+      email: 'admin@admin.com',
+      password: 'admin',
+      cellphone: 53984523422,
+      birthdate: '11/12/2020',
+      is_Adm: true,
+    })
+
+    const car = await addCarService.execute({
+      model: 'camaro',
+      board: 'ick9090',
+      category: 'vip',
+      color: 'black',
+      user_Id: user.id,
+      observations: 'vidro quebrado',
+      url: 'http://localhost.com',
+    })
+
+    await expect(
+      rentCarService.execute({
+        date_From: '04/12/3020',
+        date_Until: '12/13/3020',
+        user_Id: user.id,
+        id: String(car.id),
+      }),
+    ).rejects.toBeInstanceOf(AppError)
+  })
+
   it('should be not able to rent a car that does not exist', async () => {
     const fakeUserRepository = new FakeUserRepository()
     const fakeCarRepository = new FakeCarRepository()

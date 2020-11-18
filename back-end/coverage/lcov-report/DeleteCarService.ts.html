@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -90,8 +90,8 @@
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -101,30 +101,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import AppError from '../errors/AppError'
-import { inject, injectable } from 'tsyringe'
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import AppError from '../errors/AppError'</span>
+<span class="cstat-no" title="statement not covered" >import { inject, injectable } from 'tsyringe'</span>
 import ICarRepository from '../repositories/ICarRepository'
 import IUserRepository from '../repositories/IUserRepository'
 &nbsp;
@@ -134,28 +134,28 @@ interface IRequest {
 }
 &nbsp;
 @injectable()
-export default class DeleteCarService {
-  constructor(
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export default class <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >D</span></span>eleteCarService {</span></span>
+<span class="fstat-no" title="function not covered" >  constructor(</span>
     @inject('CarRepository')
-    private carRepository: ICarRepository,
+    private <span class="cstat-no" title="statement not covered" >carRepository: ICarRepository,</span>
 &nbsp;
     @inject('UserRepository')
-    private userRepository: IUserRepository,
+    private <span class="cstat-no" title="statement not covered" >userRepository: IUserRepository,</span>
   ) {}
 &nbsp;
-  public async execute({ id, user_Id }: IRequest): Promise&lt;void&gt; {
-    const user = await this.userRepository.findById(user_Id)
-    if (!user || (user &amp;&amp; !user.is_Adm)) {
-      throw new AppError('you dont have permission to delete a car')
+<span class="fstat-no" title="function not covered" >  public async <span class="cstat-no" title="statement not covered" >e</span>xecute({ id<span class="cstat-no" title="statement not covered" >, u</span>ser_Id<span class="cstat-no" title="statement not covered" > }: IRequest)</span>: Promise&lt;void&gt; {</span>
+    const <span class="cstat-no" title="statement not covered" >user = <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >await this.userRepository.findById(user_Id)</span></span></span>
+<span class="cstat-no" title="statement not covered" >    if (!user || (user &amp;&amp; !user.is_Adm)) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new AppError('you dont have permission to delete a car')</span>
     }
-    const carExist = await this.carRepository.findOne(parseInt(id))
+    const <span class="cstat-no" title="statement not covered" >carExist = <span class="cstat-no" title="statement not covered" >await this.carRepository.findOne(parseInt(id))</span></span>
 &nbsp;
-    if (!carExist) {
-      throw new AppError('Car not found', 404)
+<span class="cstat-no" title="statement not covered" >    if (!carExist) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new AppError('Car not found', 404)</span>
     }
-    await this.carRepository.delete(parseInt(id))
+<span class="cstat-no" title="statement not covered" >    await this.carRepository.delete(parseInt(id))</span>
   }
-}
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -163,7 +163,7 @@ export default class DeleteCarService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 18 2020 09:49:22 GMT-0300 (Brasilia Standard Time)
+                at Wed Nov 18 2020 13:58:27 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="prettify.js"></script>
